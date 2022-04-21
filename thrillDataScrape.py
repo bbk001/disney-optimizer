@@ -33,46 +33,51 @@ headers = {
     'sec-ch-ua-platform': '"macOS"',
 }
 
-y = 2022
-mo = 4
-d = 21
-h = 14
-mi = 0
-now = datetime.now()
-doNow = True
-if doNow:
-  y = now.year
-  mo = now.month
-  d = now.day
-  h = now.hour
-  mi = int(now.minute/10)*10
+def getWaitTimePredict(ride, park='disneyland', dateTimesToCheck=datetime.now()):
+  # y = 2022
+  # mo = 4
+  # d = 21
+  # h = 14
+  # mi = 0
+  now = datetime.now()
+  y = dateTimesToCheck[0].year
+  mo = dateTimesToCheck[0].month
+  d = dateTimesToCheck[0].day
+  fullListOfLines = []
+  for tagOption in ['week', 'dow','hist']:
+    params = {
+        'park': park,
+        'title': ride,
+        'dateStart': '{}-{:02d}-{:02d}'.format(y,mo,d),
+        'tag': tagOption,
+    }
+    response = requests.get('https://www.thrill-data.com/waits/graph/quick/rideavg', headers=headers, params=params, cookies=cookies)
+    textLeft = response.text
+    textLeft = textLeft[textLeft.find("Plotly.newPlot"):]
+    textLeft = textLeft[textLeft.find("["):textLeft.find("]}],")+3]
+    textLeft = textLeft.replace('\\','')
+    if datetime(y, mo, d, 4) > datetime(now.year, now.month, now.day+1, 3):
+      asListOfLines = json.loads(textLeft)
+    else:
+      asListOfLines = json.loads(textLeft)[:-1]
+    fullListOfLines += (asListOfLines)
+  for dateTimeToCheck in dateTimesToCheck:
+    h = dateTimeToCheck.hour
+    mi = int(dateTimeToCheck.minute/10)*10
 
-
-predictionList = []
-for tagOption in ['week', 'dow','hist']:
-  params = {
-      'park': 'disneyland',
-      'title': 'bigthundermountainrailroad',
-      'dateStart': '{}-{:02d}-{:02d}'.format(y,mo,d),
-      'tag': tagOption,
-  }
-  response = requests.get('https://www.thrill-data.com/waits/graph/quick/rideavg', headers=headers, params=params, cookies=cookies)
-  textLeft = response.text
-  textLeft = textLeft[textLeft.find("Plotly.newPlot"):]
-  textLeft = textLeft[textLeft.find("["):textLeft.find("]}],")+3]
-  textLeft = textLeft.replace('\\','')
-  if datetime(y, mo, d, h, mi) > datetime(now.year, now.month, now.day+1, 3):
-    asListOfLines = json.loads(textLeft)
-  else:
-    asListOfLines = json.loads(textLeft)[:-1]
-  for line in asListOfLines:
-    waitTimeDict = dict(zip(map(lambda x: datetime.strptime(x[:-4]+'0', '%Y-%m-%dT%H:%M'), line['x']), line['y']))
-    try:
-      predictionList.append(waitTimeDict[datetime(y, mo, d, h, mi)])
-    except:
+    predictionList = []
+    for line in fullListOfLines:
+      waitTimeDict = dict(zip(map(lambda x: datetime.strptime(x[:-4]+'0', '%Y-%m-%dT%H:%M'), line['x']), line['y']))
       try:
-        predictionList.append(waitTimeDict[datetime(y, mo, d, h, mi-10)])
+        predictionList.append(waitTimeDict[datetime(y, mo, d, h, mi)])
       except:
-        pass
-print(np.sqrt(np.mean(np.array(predictionList)**2)))
+        try:
+          predictionList.append(waitTimeDict[datetime(y, mo, d, h, mi-10)])
+        except:
+          pass
+    try:
+      predictionList.sort()
+      yield int(np.sqrt(np.mean(np.array(predictionList[1:-1])**2)))
+    except:
+      yield None
 
