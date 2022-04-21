@@ -114,3 +114,4 @@ if __name__ == "__main__":
     data[entries[0].text] = process(entries[1].text)
   
   df = pd.DataFrame([data])
+  print(df)
