@@ -45,7 +45,12 @@ def lpApprox(jobsSorted, arrive, depart):
       else:
         columnVec.append(0)
     for name in rideList:
-      if name==job.ride[:-1]:
+      if name+'2'==job.ride:
+        columnVec.append(newVar)
+      else:
+        columnVec.append(0)
+    for name in rideList:
+      if name+'3'==job.ride:
         columnVec.append(newVar)
       else:
         columnVec.append(0)
