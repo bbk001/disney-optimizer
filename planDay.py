@@ -1,5 +1,7 @@
 from thrillDataScrape import getWaitTimePredict
 from greedyAlpha import greedyAlpha
+# from lpApprox import lpApprox
+from orToolsILP import lpApprox
 from datetime import datetime
 from datetime import timedelta
 import matplotlib.pyplot as plt
@@ -43,14 +45,21 @@ rideVals = [
 def plan(arrive, depart, doy, timeBetweenRides, valueList):
   rideWaitTimes = getAllDayPredict(arrive, depart, doy)[0]
   jobList = makeJobs(arrive, rideWaitTimes, timeBetweenRides, valueList)
-  return greedyAlpha(jobList)
+  result = lpApprox(jobList, arrive, depart)
+  # return result
 
 class Job:
-  def __init__(self, startTime, endTime, value, ride):
+  def __init__(self, startTime, endTime, value, ride, timeBetweenRides):
     self.start = startTime
     self.end = endTime
     self.val = value
     self.ride = ride
+    self.tbr = timeBetweenRides
+  
+  def __str__(self) -> str:
+    startRide = self.start.strftime('%H:%M')
+    endRide = (self.end - timedelta(minutes=self.tbr)).strftime('%H:%M')
+    return 'Ride {} at {} until {} for a value of {}'.format(self.ride, startRide, endRide, self.val)
 
 def makeJobs(arrive, rideWaitTimes, timeBetweenRides, valueList):
   jobList = []
@@ -59,8 +68,8 @@ def makeJobs(arrive, rideWaitTimes, timeBetweenRides, valueList):
     for wt in waitTimes:
       if wt:
         endTime = timeOfDay+timedelta(minutes=timeBetweenRides)+timedelta(minutes=wt)
-        jobList.append(Job(timeOfDay, endTime, vals[0], name))
-        jobList.append(Job(timeOfDay+timedelta(seconds=1), endTime+timedelta(seconds=1), vals[1], name+'2'))
+        jobList.append(Job(timeOfDay, endTime, vals[0], name, timeBetweenRides))
+        jobList.append(Job(timeOfDay, endTime, vals[1], name+'2', timeBetweenRides))
       timeOfDay+=timedelta(minutes=10)
   jobList.sort(key=lambda x: x.end)
   return jobList
@@ -78,22 +87,12 @@ def getAllDayPredict(arrive, depart, doy):
   return result, timeList
 
 if __name__ == "__main__":
-  arrive = {'h': 8, 'mi': 0}
-  depart = {'h': 23, 'mi': 50}
+  arrive = {'h': 10, 'mi': 0}
+  depart = {'h': 20, 'mi': 50}
   doy = {'y': 2022, 'mo': 4, 'd': 22}
   if True:
     timeBetweenRides = 30
     plans = plan(arrive, depart, doy, timeBetweenRides, rideVals)
-    for ride in plans:
-      startRide = ride.start.strftime('%H:%M')
-      endRide = (ride.end - timedelta(minutes=timeBetweenRides)).strftime('%H:%M')
-      print('Ride {} at {} until {} for a value of {}'.format(ride.ride, startRide, endRide, ride.val))
-    print('Total value: {}'.format(sum(map(lambda x: x.val, plans))))
-  else:
-    result, timeList = getAllDayPredict(arrive, depart, doy)
-    x = list(map(lambda dt: dt.strftime('%H:%M'), timeList))
-    for line, ride in zip(result, rideList):
-      plt.plot(x, line, label=ride[:5])
-    plt.xticks(x[::6])
-    plt.legend()
-    plt.show()
+    # for ride in plans:
+    #   print(ride)
+    # print('Total value: {}'.format(sum(map(lambda x: x.val, plans))))
