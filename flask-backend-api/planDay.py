@@ -1,85 +1,21 @@
 from thrillDataScrape import getWaitTimePredict
-from greedyAlpha import greedyAlpha
+# from greedyAlpha import greedyAlpha
+from Job import Job
 # from lpApprox import lpApprox
 from orToolsILP import lpApprox
+from defaultRideDict import rideDict
 from datetime import datetime
 from datetime import timedelta
 import argparse
-from flask import Flask
-
-app = Flask(__name__)
-
-rideDict = {
-  'bigthundermountainrailroad': (70,50,40),
-  'starwarsriseoftheresistance': (110,60,50),
-  'spacemountain': (100,75,65),
-  'splashmountain': (75,55,45),
-  'millenniumfalconsmugglersrun': (80,40,30),
-  'matterhornbobsleds': (72,55,45),
-  'indianajonesadventure': (70,45,35),
-  'buzzlightyearastroblasters': (52,45,40),
-  'startourstheadventurescontinue': (45,35,25),
-  'junglecruise': (45,35,25),
-  'hauntedmansion': (55,45,30),
-  'piratesofthecaribbean': (55,45,30),
-  # 'mrtoadswildride': (35,20,10),
-  # 'autopia': (40,25,15),
-  # 'snowwhitesenchantedwish': (30,15,10),
-  # 'storybooklandcanalboats': (20,10,5),
-  # 'themanyadventuresofwinniethepooh': (25,10,5),
-  # 'pinocchiosdaringjourney': (30,15,10),
-  # 'peterpansflight': (35,20,10),
-  # 'madteaparty': (15,5,1),
-  # 'kingarthurcarrousel': (15,5,1),
-  # 'dumbotheflyingelephant': (15,5,1),
-  # 'caseyjrcircustrain': (20, 10, 5),
-  # 'astroorbitor': (20,10,5),
-  # 'aliceinwonderland': (25,10,5),
-  'itsasmallworld': (30,15,10)
-}
 
 rideList = rideDict.keys()
 rideVals = rideDict.values()
-
-@app.route('/test')
-def test():
-  return {'test':'string'}
-
-@app.route('/default')
-def default():
-  print("called")
-  arrive = {'h': 8, 'mi': 0}
-  depart = {'h': 23, 'mi': 50}
-  doy = {'y': 2022, 'mo': 4, 'd': 22}
-  timeBetweenRides = 30
-  plans = plan(arrive, depart, doy, timeBetweenRides, rideVals)
-  print('planned')
-  return {'planList': plans}
-
 
 def plan(arrive, depart, doy, timeBetweenRides, valueList):
   rideWaitTimes = getAllDayPredict(arrive, depart, doy)[0]
   jobList = makeJobs(arrive, rideWaitTimes, timeBetweenRides, valueList)
   result = lpApprox(jobList, arrive, depart)
   return result
-
-class Job:
-  def __init__(self, startTime, endTime, value, ride, timeBetweenRides):
-    self.start = startTime
-    self.end = endTime
-    self.val = value
-    self.ride = ride
-    self.tbr = timeBetweenRides
-  
-  def __str__(self) -> str:
-    startRide = self.start.strftime('%H:%M')
-    endRide = (self.end - timedelta(minutes=self.tbr)).strftime('%H:%M')
-    return 'Ride {} at {} until {} for a value of {}'.format(self.ride, startRide, endRide, self.val)
-  
-  def toJSon(self):
-    startRide = self.start.strftime('%H:%M')
-    endRide = (self.end - timedelta(minutes=self.tbr)).strftime('%H:%M')
-    return {'rideName': self.ride, 'startTime': startRide, 'endTime': endRide, 'value': self.val}
 
 def makeJobs(arrive, rideWaitTimes, timeBetweenRides, valueList):
   jobList = []
