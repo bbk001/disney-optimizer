@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import './App.css';
+import Plan from './components/Plan';
 //import Flatpickr from "react-flatpickr";
 
 function App() {
-  const [firstRide, setFirstRide] = useState('');
+  const [planList, setPlanList] = useState([]);
 
   function loadRides() {
-    setFirstRide('loading..');
+    setPlanList([]);
     fetch('/default').then(res => res.json()).then(data => {
-      setFirstRide(data.planList[0].rideName);
+      setPlanList(data.planList);
     });
   }
 
@@ -22,7 +23,7 @@ function App() {
         }}
       /> */}
       <button onClick={()=>loadRides()}>Load Rides</button>
-      <p>The first ride is {firstRide}.</p>
+      <Plan plans={planList}/>
     </div>
   );
 }
