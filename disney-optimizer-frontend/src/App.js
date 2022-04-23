@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
+//import Flatpickr from "react-flatpickr";
 
 function App() {
   const [firstRide, setFirstRide] = useState('');
@@ -14,22 +14,15 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <button onClick={()=>loadRides()}>Load Rides</button>
-        <p>The first ride is {firstRide}.</p>
-      </header>
+      {/* <Flatpickr
+        data-enable-time
+        value={date}
+        onChange={date => {
+          this.setState({ date });
+        }}
+      /> */}
+      <button onClick={()=>loadRides()}>Load Rides</button>
+      <p>The first ride is {firstRide}.</p>
     </div>
   );
 }
