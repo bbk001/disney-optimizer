@@ -1,7 +1,17 @@
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const [firstRide, setFirstRide] = useState('');
+
+  function loadRides() {
+    setFirstRide('loading..');
+    fetch('/default').then(res => res.json()).then(data => {
+      setFirstRide(data.planList[0].rideName);
+    });
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +27,8 @@ function App() {
         >
           Learn React
         </a>
+        <button onClick={()=>loadRides()}>Load Rides</button>
+        <p>The first ride is {firstRide}.</p>
       </header>
     </div>
   );

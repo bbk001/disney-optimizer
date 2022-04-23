@@ -77,7 +77,10 @@ def getWaitTimePredict(ride, park='disneyland', dateTimesToCheck=datetime.now())
           pass
     try:
       predictionList.sort()
-      yield int(np.sqrt(np.mean(np.array(predictionList[1:-1])**2)))
+      if len(predictionList)>2:
+        yield int(np.sqrt(np.mean(np.array(predictionList[1:-1])**2)))
+      else:
+        yield None
     except:
       yield None
 

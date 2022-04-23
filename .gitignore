@@ -1,15 +1,15 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/disney-optimizer-frontend/node_modules
-/disney-optimizer-frontend/.pnp
+disney-optimizer-frontend/node_modules/
+disney-optimizer-frontend/.pnp/
 .pnp.js
 
 # testing
-/disney-optimizer-frontend/coverage
+disney-optimizer-frontend/coverage/
 
 # production
-/disney-optimizer-frontend/build
+disney-optimizer-frontend/build/
 
 # misc
 .DS_Store
@@ -23,5 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 # flask/python stuff
-/flask-backend-api/venv
+flask-backend-api/venv/
 __pycache__

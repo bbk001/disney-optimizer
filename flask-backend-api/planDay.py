@@ -5,8 +5,9 @@ from orToolsILP import lpApprox
 from datetime import datetime
 from datetime import timedelta
 import argparse
+from flask import Flask
 
-
+app = Flask(__name__)
 
 rideDict = {
   'bigthundermountainrailroad': (70,50,40),
@@ -40,11 +41,27 @@ rideDict = {
 rideList = rideDict.keys()
 rideVals = rideDict.values()
 
+@app.route('/test')
+def test():
+  return {'test':'string'}
+
+@app.route('/default')
+def default():
+  print("called")
+  arrive = {'h': 8, 'mi': 0}
+  depart = {'h': 23, 'mi': 50}
+  doy = {'y': 2022, 'mo': 4, 'd': 22}
+  timeBetweenRides = 30
+  plans = plan(arrive, depart, doy, timeBetweenRides, rideVals)
+  print('planned')
+  return {'planList': plans}
+
+
 def plan(arrive, depart, doy, timeBetweenRides, valueList):
   rideWaitTimes = getAllDayPredict(arrive, depart, doy)[0]
   jobList = makeJobs(arrive, rideWaitTimes, timeBetweenRides, valueList)
   result = lpApprox(jobList, arrive, depart)
-  # return result
+  return result
 
 class Job:
   def __init__(self, startTime, endTime, value, ride, timeBetweenRides):
@@ -58,6 +75,11 @@ class Job:
     startRide = self.start.strftime('%H:%M')
     endRide = (self.end - timedelta(minutes=self.tbr)).strftime('%H:%M')
     return 'Ride {} at {} until {} for a value of {}'.format(self.ride, startRide, endRide, self.val)
+  
+  def toJSon(self):
+    startRide = self.start.strftime('%H:%M')
+    endRide = (self.end - timedelta(minutes=self.tbr)).strftime('%H:%M')
+    return {'rideName': self.ride, 'startTime': startRide, 'endTime': endRide, 'value': self.val}
 
 def makeJobs(arrive, rideWaitTimes, timeBetweenRides, valueList):
   jobList = []
@@ -99,8 +121,7 @@ if __name__ == "__main__":
   arrive = {'h': int(startTimeList[0]), 'mi': int(startTimeList[1])}
   depart = {'h': int(endTimeList[0]), 'mi': int(endTimeList[1])}
   doy = {'y': int(dateList[0]), 'mo': int(dateList[1]), 'd': int(dateList[2])}
-  if True:
-    plans = plan(arrive, depart, doy, args.timeBetweenRides, rideVals)
-    # for ride in plans:
-    #   print(ride)
-    # print('Total value: {}'.format(sum(map(lambda x: x.val, plans))))
+  plans = plan(arrive, depart, doy, args.timeBetweenRides, rideVals)
+  # for ride in plans:
+  #   print(ride)
+  # print('Total value: {}'.format(sum(map(lambda x: x.val, plans))))

@@ -60,14 +60,14 @@ def lpApprox(jobsSorted, arrive, depart):
     model.Add(sum(row)<=1)
   model.Maximize(sum(map(lambda tup:tup[0]*tup[1],objectiveVecList)))
   solver = cp_model.CpSolver()
-  print('Ready to solve...')
   status = solver.Solve(model)
+  rides = []
   if status == cp_model.OPTIMAL or status == cp_model.FEASIBLE:
-    print(f'Maximum of objective function: {solver.ObjectiveValue()}\n')
     for var in vars.keys():
       if solver.Value(var)==1:
-        print(vars[var])
+        rides.append(vars[var].toJSon())
   else:
     print('No solution found.')
+  return rides
 
     

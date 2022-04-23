@@ -1,0 +1,2 @@
+FLASK_APP=planDay.py
+FLASK_ENV=development
