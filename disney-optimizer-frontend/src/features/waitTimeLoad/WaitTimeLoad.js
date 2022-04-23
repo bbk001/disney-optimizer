@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { setLoading, setData } from './waitTimePredictsSlice';
+import { isUpToDate } from '../../functions/util'
 
 export function loadWaitTimes(dispatch, doy) {
   const arrive = {h: 8, mi: 0};
@@ -33,7 +34,7 @@ function WaitTimeLoad() {
   if (loading) {
     loadButton = <div>Loading...</div>
   } else {
-    if ((Date.now()-lastWTUpdate)/60000<120) {
+    if (isUpToDate(lastWTUpdate)) {
       loadButton = null
     } else {
       loadButton = <button onClick={()=> loadWaitTimes(dispatch, {'y': 2022, 'mo': 4, 'd': 22})}>Load Predictions</button>

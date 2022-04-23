@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { setLoading, createPlanList } from './planListSlice';
 import { loadWaitTimes } from '../waitTimeLoad/WaitTimeLoad';
+import { isUpToDate } from '../../functions/util'
 
 function Plan(props) {
   const lastWTUpdate = useSelector((state) => state.waitTimePredicts.lastUpdate)
@@ -20,7 +21,7 @@ function Plan(props) {
   }
 
   function makePlans() {
-    if ((Date.now()-lastWTUpdate)/60000<120) {
+    if (isUpToDate(lastWTUpdate)) {
       const requestPlanOptions = {
         method: 'POST',
         headers: {
@@ -42,7 +43,7 @@ function Plan(props) {
   if (loading) {
     loadButton = <div>Loading...</div>
   } else {
-    if ((Date.now()-lastWTUpdate)/60000<120) {
+    if (isUpToDate(lastWTUpdate)) {
       loadButton = <button onClick={makePlans}>Make Plans</button>
     } else {
       loadButton = null
