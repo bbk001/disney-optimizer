@@ -1,17 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-import Plan from './components/Plan';
+import Plan from './features/planList/Plan';
+import WaitTimeLoad from './features/waitTimeLoad/WaitTimeLoad';
 //import Flatpickr from "react-flatpickr";
 
 function App() {
-  const [planList, setPlanList] = useState([]);
-
-  function loadRides() {
-    setPlanList([]);
-    fetch('/default').then(res => res.json()).then(data => {
-      setPlanList(data.planList);
-    });
-  }
 
   return (
     <div className="App">
@@ -22,8 +15,8 @@ function App() {
           this.setState({ date });
         }}
       /> */}
-      <button onClick={()=>loadRides()}>Load Rides</button>
-      <Plan plans={planList}/>
+      <WaitTimeLoad />
+      <Plan />
     </div>
   );
 }

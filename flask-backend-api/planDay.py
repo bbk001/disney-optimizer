@@ -13,17 +13,19 @@ rideVals = rideDict.values()
 
 def plan(arrive, depart, doy, timeBetweenRides, rideValsDict):
   rideWaitTimes = getAllDayPredict(arrive, depart, doy)[1]
-  jobList = makeJobs(arrive, rideWaitTimes, timeBetweenRides, rideValsDict)
+  jobList = makeJobs(arrive, depart, rideWaitTimes, timeBetweenRides, rideValsDict)
   result = lpApprox(jobList, arrive, depart)
   return result
 
-def makeJobs(arrive, rideWaitTimes, timeBetweenRides, rideValsDict):
+def makeJobs(arrive, depart, rideWaitTimes, timeBetweenRides, rideValsDict):
   jobList = []
+  skipUntil = int((arrive['h']-8)*6+arrive['mi']/10)
+  endOn = int((depart['h']-8)*6+depart['mi']/10)+1
   for rideName in rideValsDict.keys():
     timeOfDay = datetime(2022, 4, 22, arrive['h'], arrive['mi'])
     waitTimes = rideWaitTimes[rideName]
     vals = rideValsDict[rideName]
-    for wt in waitTimes:
+    for wt in waitTimes[skipUntil:endOn]:
       if wt:
         endTime = timeOfDay+timedelta(minutes=timeBetweenRides)+timedelta(minutes=wt)
         jobList.append(Job(timeOfDay, endTime, vals[0], rideName, timeBetweenRides))

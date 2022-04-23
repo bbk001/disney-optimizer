@@ -14,15 +14,19 @@ def test():
 
 @app.route('/requestRidePredict', methods=['POST'])
 def requestRidePredict():
-  return getAllDayPredict(request.form.get('arrive'), request.form.get('depart'), request.form.get('doy'))[1]
+  print('Getting predicts')
+  return getAllDayPredict(request.json['arrive'], request.json['depart'], request.json['doy'])[1]
 
 @app.route('/requestPlans', methods=['POST'])
 def requestPlans():
-  rideWaitTimes = request.form.get('rideWaitTimes')
-  arrive = request.form.get('arrive')
-  jobList = makeJobs(arrive, rideWaitTimes, request.form.get('tbr'), rideDict)
-  result = lpApprox(jobList, arrive, request.form.get('depart'))
-  return result
+  print('Getting plans')
+  rideWaitTimes = request.json['rideWaitTimes']
+  arrive = request.json['arrive']
+  depart = request.json['depart']
+  jobList = makeJobs(arrive, depart, rideWaitTimes, request.json['tbr'], rideDict)
+  result = lpApprox(jobList, arrive, depart)
+  print('Got plans')
+  return {'planList': result}
 
 @app.route('/default')
 def default():
