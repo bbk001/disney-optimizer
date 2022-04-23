@@ -11,22 +11,24 @@ import argparse
 rideList = rideDict.keys()
 rideVals = rideDict.values()
 
-def plan(arrive, depart, doy, timeBetweenRides, valueList):
-  rideWaitTimes = getAllDayPredict(arrive, depart, doy)[0]
-  jobList = makeJobs(arrive, rideWaitTimes, timeBetweenRides, valueList)
+def plan(arrive, depart, doy, timeBetweenRides, rideValsDict):
+  rideWaitTimes = getAllDayPredict(arrive, depart, doy)[1]
+  jobList = makeJobs(arrive, rideWaitTimes, timeBetweenRides, rideValsDict)
   result = lpApprox(jobList, arrive, depart)
   return result
 
-def makeJobs(arrive, rideWaitTimes, timeBetweenRides, valueList):
+def makeJobs(arrive, rideWaitTimes, timeBetweenRides, rideValsDict):
   jobList = []
-  for name, waitTimes, vals in zip(rideList, rideWaitTimes, valueList):
+  for rideName in rideValsDict.keys():
     timeOfDay = datetime(2022, 4, 22, arrive['h'], arrive['mi'])
+    waitTimes = rideWaitTimes[rideName]
+    vals = rideValsDict[rideName]
     for wt in waitTimes:
       if wt:
         endTime = timeOfDay+timedelta(minutes=timeBetweenRides)+timedelta(minutes=wt)
-        jobList.append(Job(timeOfDay, endTime, vals[0], name, timeBetweenRides))
-        jobList.append(Job(timeOfDay, endTime, vals[1], name+'2', timeBetweenRides))
-        jobList.append(Job(timeOfDay, endTime, vals[2], name+'3', timeBetweenRides))
+        jobList.append(Job(timeOfDay, endTime, vals[0], rideName, timeBetweenRides))
+        jobList.append(Job(timeOfDay, endTime, vals[1], rideName+'2', timeBetweenRides))
+        jobList.append(Job(timeOfDay, endTime, vals[2], rideName+'3', timeBetweenRides))
       timeOfDay+=timedelta(minutes=10)
   jobList.sort(key=lambda x: x.end)
   return jobList
@@ -41,7 +43,10 @@ def getAllDayPredict(arrive, depart, doy):
     timeList.append(nextTime)
     nextTime += timedelta(minutes=10)
   result = [list(getWaitTimePredict(ride, dateTimesToCheck=timeList)) for ride in rideList]
-  return result, timeList
+  resultDist = {}
+  for rideResults, ride in zip(result, rideList):
+    resultDist[ride] = rideResults
+  return timeList, resultDist
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
@@ -57,7 +62,7 @@ if __name__ == "__main__":
   arrive = {'h': int(startTimeList[0]), 'mi': int(startTimeList[1])}
   depart = {'h': int(endTimeList[0]), 'mi': int(endTimeList[1])}
   doy = {'y': int(dateList[0]), 'mo': int(dateList[1]), 'd': int(dateList[2])}
-  plans = plan(arrive, depart, doy, args.timeBetweenRides, rideVals)
+  plans = plan(arrive, depart, doy, args.timeBetweenRides, rideDict)
   # for ride in plans:
   #   print(ride)
   # print('Total value: {}'.format(sum(map(lambda x: x.val, plans))))
