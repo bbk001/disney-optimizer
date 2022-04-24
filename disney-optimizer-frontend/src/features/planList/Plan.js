@@ -2,15 +2,17 @@ import './Plan.css';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { setLoading, createPlanList } from './planListSlice';
-import { loadWaitTimes } from '../waitTimeLoad/WaitTimeLoad';
 import { isUpToDate } from '../../utils/funcs'
 import fullRideInfo from '../../utils/fullRideInfo.json'
+import loadWaitTimes from '../waitTimeLoad/loadWaitTimes';
 
 function Plan(props) {
   const lastWTUpdate = useSelector((state) => state.waitTimePredicts.lastUpdate)
   const waitTimePredicts = useSelector((state) => state.waitTimePredicts.data)
   const planList = useSelector((state) => state.planList.planList)
-  const loading = useSelector((state) => state.planList.loading)
+  const loading1 = useSelector((state) => state.planList.loading)
+  const loading2 = useSelector((state) => state.waitTimePredicts.loading)
+  const loading = loading1 || loading2
   const doy = useSelector((state) => state.scheduling.doy)
   const arrive = useSelector((state) => state.scheduling.arrive)
   const depart = useSelector((state) => state.scheduling.depart)
