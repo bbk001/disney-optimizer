@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { setLoading, setData } from './waitTimePredictsSlice';
+import { setLoading, updateData, resetData } from './waitTimePredictsSlice';
 import { isUpToDate } from '../../utils/funcs'
 import { parkClose, parkOpen } from '../../utils/consts';
 import fullRideInfo from '../../utils/fullRideInfo.json'
@@ -8,23 +8,33 @@ import fullRideInfo from '../../utils/fullRideInfo.json'
 export function loadWaitTimes(dispatch, doy) {
   const arrive = parkOpen;
   const depart = parkClose;
-  const requestRidePredictOptions = {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      arrive: arrive,
-      depart: depart,
-      doy: doy,
-      rideDict: fullRideInfo
-     })
-  };
-  dispatch(setLoading())
-  fetch('/api/requestRidePredict', requestRidePredictOptions).then(res => res.json()).then(data => {
-    dispatch(setData({data, doy}))
-  });
+  let someRideInfo = {};
+  let counter = 0;
+  dispatch(resetData());
+  for (let key in fullRideInfo.keys()) {
+    someRideInfo[key] = fullRideInfo[key];
+    counter+=1;
+    if (counter%5==0) {
+      const requestRidePredictOptions = {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          arrive: arrive,
+          depart: depart,
+          doy: doy,
+          rideDict: someRideInfo
+        })
+      };
+      someRideInfo = {};
+      dispatch(setLoading());
+      fetch('/api/requestRidePredict', requestRidePredictOptions).then(res => res.json()).then(data => {
+        dispatch(updateData({data, doy}));
+      });
+    }
+  }
 }
 
 function WaitTimeLoad() {

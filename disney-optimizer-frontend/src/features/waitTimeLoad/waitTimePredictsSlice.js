@@ -12,16 +12,19 @@ export const waitTimePredictsSlice = createSlice({
     setLoading: (state) => {
       state.loading = true
     },
-    setData: (state, data) => {
-      state.data = data.payload.data
+    updateData: (state, data) => {
+      state.data = state.data.concat(data.payload.data)
       state.lastUpdate = Date.now()
       state.loading = false
       state.doyFor = data.payload.doy
+    },
+    resetData: (state) => {
+      state.data = []
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setLoading, setData } = waitTimePredictsSlice.actions
+export const { setLoading, updateData, resetData } = waitTimePredictsSlice.actions
 
 export default waitTimePredictsSlice.reducer
