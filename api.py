@@ -1,10 +1,13 @@
+import sys
 from flask import Flask, request, send_from_directory
 from flask_cors import CORS, cross_origin
-from planDay import getAllDayPredict, makeJobs
-from orToolsILP import lpApprox
 import os
 
-app = Flask(__name__, static_folder='../disney-optimizer-frontend/build', static_url_path='/')
+sys.path.insert(0, '/Users/ericthompson-martin/Desktop/Misc./Coding Projects/disney-optimizer/flask-backend-api')
+from planDay import getAllDayPredict, makeJobs
+from orToolsILP import lpApprox
+
+app = Flask(__name__, static_folder='./disney-optimizer-frontend/build', static_url_path='/')
 cors = CORS(app)
 
 @app.route('/')
