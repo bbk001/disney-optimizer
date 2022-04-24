@@ -1,4 +1,3 @@
-import sys
 from flask import Flask, request, send_from_directory
 from flask_cors import CORS, cross_origin
 import os
