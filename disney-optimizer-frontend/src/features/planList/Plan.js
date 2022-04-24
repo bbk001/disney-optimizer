@@ -9,13 +9,15 @@ function Plan(props) {
   const waitTimePredicts = useSelector((state) => state.waitTimePredicts.data)
   const planList = useSelector((state) => state.planList.planList)
   const loading = useSelector((state) => state.planList.loading)
-
+  const doy = useSelector((state) => state.scheduling.doy)
+  const arrive = useSelector((state) => state.scheduling.arrive)
+  const depart = useSelector((state) => state.scheduling.depart)
 
   const dispatch = useDispatch();
 
   const requestBody = {
-    arrive: {'h': 8, 'mi': 0},
-    depart: {'h': 23, 'mi': 50},
+    arrive: arrive,
+    depart: depart,
     rideWaitTimes: waitTimePredicts,
     tbr: 30
   }
@@ -35,7 +37,7 @@ function Plan(props) {
         dispatch(createPlanList(data))
       });
     } else {
-      loadWaitTimes(dispatch, {'y': 2022, 'mo': 4, 'd': 22})
+      loadWaitTimes(dispatch, doy)
     }
   }
 

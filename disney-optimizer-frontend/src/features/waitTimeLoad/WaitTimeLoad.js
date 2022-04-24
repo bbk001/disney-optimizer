@@ -27,6 +27,7 @@ export function loadWaitTimes(dispatch, doy) {
 function WaitTimeLoad() {
   const lastWTUpdate = useSelector((state) => state.waitTimePredicts.lastUpdate);
   const loading = useSelector((state) => state.waitTimePredicts.loading);
+  const doy = useSelector((state) => state.scheduling.doy);
 
   const dispatch = useDispatch();
 
@@ -37,7 +38,7 @@ function WaitTimeLoad() {
     if (isUpToDate(lastWTUpdate)) {
       loadButton = null
     } else {
-      loadButton = <button onClick={()=> loadWaitTimes(dispatch, {'y': 2022, 'mo': 4, 'd': 22})}>Load Predictions</button>
+      loadButton = <button onClick={()=> loadWaitTimes(dispatch, doy)}>Load Predictions</button>
     }
   }
 
