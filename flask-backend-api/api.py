@@ -1,23 +1,29 @@
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
+from flask_cors import CORS, cross_origin
 from planDay import getAllDayPredict, makeJobs
 from orToolsILP import lpApprox
+import os
 
 app = Flask(__name__, static_folder='../disney-optimizer-frontend/build', static_url_path='/')
+cors = CORS(app)
 
 @app.route('/')
 def index():
-    return app.send_static_file('index.html')
+    return send_from_directory(app.static_folder, 'index.html')
 
-@app.route('/test')
+@app.route('/api')
+@cross_origin()
 def test():
   return {'test':'string'}
 
-@app.route('/requestRidePredict', methods=['POST'])
+@app.route('/api/requestRidePredict', methods=['POST'])
+@cross_origin()
 def requestRidePredict():
   print('Getting predicts')
   return getAllDayPredict(request.json['arrive'], request.json['depart'], request.json['doy'], request.json['rideDict'].keys())[1]
 
-@app.route('/requestPlans', methods=['POST'])
+@app.route('/api/requestPlans', methods=['POST'])
+@cross_origin()
 def requestPlans():
   print('Getting plans')
   rideWaitTimes = request.json['rideWaitTimes']
