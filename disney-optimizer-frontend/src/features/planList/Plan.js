@@ -5,7 +5,6 @@ import { setLoading, createPlanList } from './planListSlice';
 import { loadWaitTimes } from '../waitTimeLoad/WaitTimeLoad';
 import { isUpToDate } from '../../utils/funcs'
 import fullRideInfo from '../../utils/fullRideInfo.json'
-import { api_base_url } from '../../utils/consts';
 
 function Plan(props) {
   const lastWTUpdate = useSelector((state) => state.waitTimePredicts.lastUpdate)
@@ -39,7 +38,7 @@ function Plan(props) {
         body: JSON.stringify(requestBody)
       };
       dispatch(setLoading())
-      fetch(api_base_url+'/requestPlans', requestPlanOptions).then(res => res.json()).then(data => {
+      fetch('/api/requestPlans', requestPlanOptions).then(res => res.json()).then(data => {
         dispatch(createPlanList(data))
       });
     } else {

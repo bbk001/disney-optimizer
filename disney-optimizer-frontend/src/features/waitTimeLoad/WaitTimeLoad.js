@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { setLoading, setData } from './waitTimePredictsSlice';
 import { isUpToDate } from '../../utils/funcs'
-import { api_base_url, parkClose, parkOpen } from '../../utils/consts';
+import { parkClose, parkOpen } from '../../utils/consts';
 import fullRideInfo from '../../utils/fullRideInfo.json'
 
 export function loadWaitTimes(dispatch, doy) {
@@ -22,7 +22,7 @@ export function loadWaitTimes(dispatch, doy) {
      })
   };
   dispatch(setLoading())
-  fetch(api_base_url+'/requestRidePredict', requestRidePredictOptions).then(res => res.json()).then(data => {
+  fetch('/api/requestRidePredict', requestRidePredictOptions).then(res => res.json()).then(data => {
     dispatch(setData({data, doy}))
   });
 }
