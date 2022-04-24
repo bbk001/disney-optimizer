@@ -8,6 +8,7 @@ from planDay import getAllDayPredict, makeJobs
 from orToolsILP import lpApprox
 
 app = Flask(__name__, static_folder='disney-optimizer-frontend/build', static_url_path='/')
+server = app.server
 cors = CORS(app)
 
 @app.route('/')
