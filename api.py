@@ -3,7 +3,7 @@ from flask import Flask, request, send_from_directory
 from flask_cors import CORS, cross_origin
 import os
 
-sys.path.insert(0, '/Users/ericthompson-martin/Desktop/Misc./Coding Projects/disney-optimizer/flask-backend-api')
+sys.path.insert(0, 'flask-backend-api')
 from planDay import getAllDayPredict, makeJobs
 from orToolsILP import lpApprox
 
