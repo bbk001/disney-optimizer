@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { setLoading, createPlanList } from './planListSlice';
 import { loadWaitTimes } from '../waitTimeLoad/WaitTimeLoad';
-import { isUpToDate } from '../../functions/util'
+import { isUpToDate } from '../../utils/funcs'
 
 function Plan(props) {
   const lastWTUpdate = useSelector((state) => state.waitTimePredicts.lastUpdate)
@@ -12,6 +12,8 @@ function Plan(props) {
   const doy = useSelector((state) => state.scheduling.doy)
   const arrive = useSelector((state) => state.scheduling.arrive)
   const depart = useSelector((state) => state.scheduling.depart)
+  const doyLoadedFor = useSelector((state) => state.waitTimePredicts.doyFor);
+  const tbr = useSelector((state) => state.scheduling.tbr);
 
   const dispatch = useDispatch();
 
@@ -19,7 +21,7 @@ function Plan(props) {
     arrive: arrive,
     depart: depart,
     rideWaitTimes: waitTimePredicts,
-    tbr: 30
+    tbr: tbr
   }
 
   function makePlans() {
@@ -41,11 +43,13 @@ function Plan(props) {
     }
   }
 
+  const doysMatch = doy.y===doyLoadedFor.y && doy.mo===doyLoadedFor.mo && doy.d===doyLoadedFor.d
+  console.log(doysMatch)
   let loadButton;
   if (loading) {
     loadButton = <div>Loading...</div>
   } else {
-    if (isUpToDate(lastWTUpdate)) {
+    if (isUpToDate(lastWTUpdate) && doysMatch) {
       loadButton = <button onClick={makePlans}>Make Plans</button>
     } else {
       loadButton = null
@@ -62,9 +66,9 @@ function Plan(props) {
         </thead>
         <tbody>
           {planList.map(ridePlan => 
-            <tr>
-              <td>{ridePlan.rideName}</td>
-              <td>{ridePlan.startTime}</td>
+            <tr key={ridePlan.rideName}>
+              <td key={ridePlan.rideName+'name'}>{ridePlan.rideName}</td>
+              <td key={ridePlan.rideName+'time'}>{ridePlan.startTime}</td>
             </tr>
           )}
         </tbody>

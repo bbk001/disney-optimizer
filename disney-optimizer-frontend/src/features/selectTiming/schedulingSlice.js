@@ -7,25 +7,28 @@ export const schedulingSlice = createSlice({
   initialState: {
     arrive: {h: 8, mi: 0},
     depart: {h: 23, mi: 50},
-    doy: {y: now.getFullYear(), mo: now.getMonth()+1, d: now.getDate()}
+    doy: {y: now.getFullYear(), mo: now.getMonth()+1, d: now.getDate()},
+    tbr: 30
   },
   reducers: {
-    setDoy: (state, arg) => {
-      const date = arg.payload[0]
-      state.doy = {y: date.getFullYear(), mo: date.getMonth()+1, d: date.getDate()}
+    setDoy: (state, doy) => {
+      state.doy = doy.payload
     },
     setArrival: (state, arg) => {
-      const date = arg.payload[0]
-      state.arrive = {h: date.getHours(), mi: date.getMinutes()}
+      const date = arg.payload
+      state.arrive = date
     },
     setDeparture: (state, arg) => {
-      const date = arg.payload[0]
-      state.depart = {h: date.getHours(), mi: date.getMinutes()}
+      const date = arg.payload
+      state.depart = date
+    },
+    setTbr: (state, arg) => {
+      state.tbr = arg.payload
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setDoy, setArrival, setDeparture } = schedulingSlice.actions
+export const { setDoy, setArrival, setDeparture, setTbr } = schedulingSlice.actions
 
 export default schedulingSlice.reducer

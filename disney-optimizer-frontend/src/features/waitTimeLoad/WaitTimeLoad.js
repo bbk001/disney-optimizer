@@ -1,11 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { setLoading, setData } from './waitTimePredictsSlice';
-import { isUpToDate } from '../../functions/util'
+import { isUpToDate } from '../../utils/funcs'
+import { parkClose, parkOpen } from '../../utils/consts';
 
 export function loadWaitTimes(dispatch, doy) {
-  const arrive = {h: 8, mi: 0};
-  const depart = {h: 23, mi: 50};
+  const arrive = parkOpen;
+  const depart = parkClose;
   const requestRidePredictOptions = {
     method: 'POST',
     headers: {
@@ -20,7 +21,7 @@ export function loadWaitTimes(dispatch, doy) {
   };
   dispatch(setLoading())
   fetch('/requestRidePredict', requestRidePredictOptions).then(res => res.json()).then(data => {
-    dispatch(setData(data))
+    dispatch(setData({data, doy}))
   });
 }
 
@@ -28,14 +29,17 @@ function WaitTimeLoad() {
   const lastWTUpdate = useSelector((state) => state.waitTimePredicts.lastUpdate);
   const loading = useSelector((state) => state.waitTimePredicts.loading);
   const doy = useSelector((state) => state.scheduling.doy);
+  const doyLoadedFor = useSelector((state) => state.waitTimePredicts.doyFor);
 
   const dispatch = useDispatch();
 
+  const doysMatch = doy.y===doyLoadedFor.y && doy.mo===doyLoadedFor.mo && doy.d===doyLoadedFor.d
+  console.log(doysMatch)
   let loadButton;
   if (loading) {
     loadButton = <div>Loading...</div>
   } else {
-    if (isUpToDate(lastWTUpdate)) {
+    if (isUpToDate(lastWTUpdate) && doysMatch) {
       loadButton = null
     } else {
       loadButton = <button onClick={()=> loadWaitTimes(dispatch, doy)}>Load Predictions</button>

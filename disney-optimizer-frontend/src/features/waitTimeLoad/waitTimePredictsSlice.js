@@ -5,16 +5,18 @@ export const waitTimePredictsSlice = createSlice({
   initialState: {
     data: [],
     loading: false,
-    lastUpdate: 0
+    lastUpdate: 0,
+    doyFor: {y: 0, mo: 1, d: 1}
   },
   reducers: {
     setLoading: (state) => {
       state.loading = true
     },
     setData: (state, data) => {
-      state.data = data.payload
+      state.data = data.payload.data
       state.lastUpdate = Date.now()
       state.loading = false
+      state.doyFor = data.payload.doy
     }
   },
 })
