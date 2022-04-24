@@ -34,7 +34,6 @@ function WaitTimeLoad() {
   const dispatch = useDispatch();
 
   const doysMatch = doy.y===doyLoadedFor.y && doy.mo===doyLoadedFor.mo && doy.d===doyLoadedFor.d
-  console.log(doysMatch)
   let loadButton;
   if (loading) {
     loadButton = <div>Loading...</div>

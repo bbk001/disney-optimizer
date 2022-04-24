@@ -3,15 +3,8 @@ import "flatpickr/dist/themes/material_green.css";
 import React from 'react';
 import Flatpickr from "react-flatpickr";
 import { useSelector, useDispatch } from 'react-redux'
-import { parkClose, parkOpen } from "../../utils/consts";
+import { minTime, maxTime, zeroTime } from "../../utils/consts";
 import { setArrival, setDeparture, setDoy, setTbr } from './schedulingSlice'
-
-const minTime = new Date()
-minTime.setHours(parkOpen.h)
-minTime.setMinutes(parkOpen.mi)
-const maxTime = new Date()
-maxTime.setHours(parkClose.h)
-maxTime.setMinutes(parkClose.mi+1)
 
 const timePickerOptions = {
   noCalendar: true, 
@@ -89,7 +82,7 @@ function Scheduling() {
         <Flatpickr
           data-enable-time
           key='depart-picker'
-          options={{...timePickerOptions, minDate: new Date(0)}}
+          options={{...timePickerOptions, minDate: zeroTime}}
           value={tbrDate}
           onChange={tbrDate => {
             const date = tbrDate[0]

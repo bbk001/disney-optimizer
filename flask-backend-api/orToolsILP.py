@@ -28,33 +28,34 @@ def lpApprox(jobsSorted, arrive, depart):
   objectiveVecList=[]
   vars = {}
   for job in jobsSorted:
-    currentTime = dayStart
-    columnVec=[]
-    newVar = model.NewIntVar(0, 1, job.ride+job.start.strftime('%H:%M'))
-    vars[newVar] = job
-    objectiveVecList.append((job.val, newVar))
-    while currentTime<=dayEnd+timedelta(minutes=60):
-      if job.start<=currentTime and job.end>=currentTime:
-        columnVec.append(newVar)
-      else:
-        columnVec.append(0)
-      currentTime+=timedelta(minutes=10)
-    for name in rideList:
-      if name==job.ride:
-        columnVec.append(newVar)
-      else:
-        columnVec.append(0)
-    for name in rideList:
-      if name+'2'==job.ride:
-        columnVec.append(newVar)
-      else:
-        columnVec.append(0)
-    for name in rideList:
-      if name+'3'==job.ride:
-        columnVec.append(newVar)
-      else:
-        columnVec.append(0)
-    fullMatListT.append(columnVec)
+    if (job.end-timedelta(minutes=job.tbr*0.8))<=dayEnd:
+      currentTime = dayStart
+      columnVec=[]
+      newVar = model.NewIntVar(0, 1, job.ride+job.start.strftime('%H:%M'))
+      vars[newVar] = job
+      objectiveVecList.append((job.val, newVar))
+      while currentTime<=dayEnd+timedelta(minutes=60):
+        if job.start<=currentTime and job.end>=currentTime:
+          columnVec.append(newVar)
+        else:
+          columnVec.append(0)
+        currentTime+=timedelta(minutes=10)
+      for name in rideList:
+        if name==job.ride:
+          columnVec.append(newVar)
+        else:
+          columnVec.append(0)
+      for name in rideList:
+        if name+'2'==job.ride:
+          columnVec.append(newVar)
+        else:
+          columnVec.append(0)
+      for name in rideList:
+        if name+'3'==job.ride:
+          columnVec.append(newVar)
+        else:
+          columnVec.append(0)
+      fullMatListT.append(columnVec)
   fullMatList = list(zip(*fullMatListT))
   for row in fullMatList:
     model.Add(sum(row)<=1)
