@@ -1,6 +1,7 @@
 from flask import Flask, request
 from planDay import getAllDayPredict, makeJobs
 from orToolsILP import lpApprox
+import os
 
 app = Flask(__name__, static_folder='../disney-optimizer-frontend/build', static_url_path='/')
 
