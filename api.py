@@ -7,7 +7,7 @@ sys.path.insert(0, '/Users/ericthompson-martin/Desktop/Misc./Coding Projects/dis
 from planDay import getAllDayPredict, makeJobs
 from orToolsILP import lpApprox
 
-app = Flask(__name__, static_folder='./disney-optimizer-frontend/build', static_url_path='/')
+app = Flask(__name__, static_folder='disney-optimizer-frontend/build', static_url_path='/')
 cors = CORS(app)
 
 @app.route('/')
