@@ -2,7 +2,11 @@ from flask import Flask, request
 from planDay import getAllDayPredict, makeJobs
 from orToolsILP import lpApprox
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../disney-optimizer-frontend/build', static_url_path='/')
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
 @app.route('/test')
 def test():
@@ -23,3 +27,10 @@ def requestPlans():
   result = lpApprox(jobList, arrive, depart, request.json['rideDict'].keys())
   print('Got plans')
   return {'planList': result}
+
+@app.errorhandler(404)
+def not_found(e):
+    return app.send_static_file('index.html')
+
+if __name__ == "__main__":
+  app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 80))
