@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setLoading, createPlanList } from './planListSlice';
 import { loadWaitTimes } from '../waitTimeLoad/WaitTimeLoad';
 import { isUpToDate } from '../../utils/funcs'
+import fullRideInfo from '../../utils/fullRideInfo.json'
 
 function Plan(props) {
   const lastWTUpdate = useSelector((state) => state.waitTimePredicts.lastUpdate)
@@ -21,7 +22,8 @@ function Plan(props) {
     arrive: arrive,
     depart: depart,
     rideWaitTimes: waitTimePredicts,
-    tbr: tbr
+    tbr: tbr,
+    rideDict: fullRideInfo
   }
 
   function makePlans() {

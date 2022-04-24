@@ -10,7 +10,7 @@ rideDict = {
   'startourstheadventurescontinue': (45,35,25),
   'junglecruise': (45,35,25),
   'hauntedmansion': (55,45,30),
-  'piratesofthecaribbean': (55,45,30),
+  # 'piratesofthecaribbean': (55,45,30),
   # 'mrtoadswildride': (35,20,10),
   # 'autopia': (40,25,15),
   # 'snowwhitesenchantedwish': (30,15,10),

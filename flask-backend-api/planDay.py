@@ -3,18 +3,13 @@ from thrillDataScrape import getWaitTimePredict
 from Job import Job
 # from lpApprox import lpApprox
 from orToolsILP import lpApprox
-from defaultRideDict import rideDict
 from datetime import datetime
 from datetime import timedelta
-import argparse
-
-rideList = rideDict.keys()
-rideVals = rideDict.values()
 
 def plan(arrive, depart, doy, timeBetweenRides, rideValsDict):
-  rideWaitTimes = getAllDayPredict(arrive, depart, doy)[1]
+  rideWaitTimes = getAllDayPredict(arrive, depart, doy, rideValsDict.keys())[1]
   jobList = makeJobs(arrive, depart, rideWaitTimes, timeBetweenRides, rideValsDict)
-  result = lpApprox(jobList, arrive, depart)
+  result = lpApprox(jobList, arrive, depart, rideValsDict.keys())
   return result
 
 def makeJobs(arrive, depart, rideWaitTimes, timeBetweenRides, rideValsDict):
@@ -24,7 +19,7 @@ def makeJobs(arrive, depart, rideWaitTimes, timeBetweenRides, rideValsDict):
   for rideName in rideValsDict.keys():
     timeOfDay = datetime(2022, 4, 22, arrive['h'], arrive['mi'])
     waitTimes = rideWaitTimes[rideName]
-    vals = rideValsDict[rideName]
+    vals = rideValsDict[rideName]['rideVals']
     for wt in waitTimes[skipUntil:endOn]:
       if wt:
         endTime = timeOfDay+timedelta(minutes=timeBetweenRides)+timedelta(minutes=wt)
@@ -35,7 +30,7 @@ def makeJobs(arrive, depart, rideWaitTimes, timeBetweenRides, rideValsDict):
   jobList.sort(key=lambda x: x.end)
   return jobList
 
-def getAllDayPredict(arrive, depart, doy):
+def getAllDayPredict(arrive, depart, doy, rideList):
   y = doy['y']
   mo = doy['mo']
   d = doy['d']
@@ -49,22 +44,3 @@ def getAllDayPredict(arrive, depart, doy):
   for rideResults, ride in zip(result, rideList):
     resultDist[ride] = rideResults
   return timeList, resultDist
-
-if __name__ == "__main__":
-  parser = argparse.ArgumentParser()
-  parser.add_argument("date", help = "Enter day to plan for in yyyy/mm/dd form.", type=str)
-  parser.add_argument("arrivalTime", help = "Enter day to plan for in hh:mm form.", type=str)
-  parser.add_argument("leaveTime", help = "Enter day to plan for in hh:mm form.", type=str)
-  parser.add_argument("timeBetweenRides", help = "Enter the time in minutes between rides.", type=int)
-  args = parser.parse_args()
-
-  dateList = args.date.split('/')
-  startTimeList = args.arrivalTime.split(':')
-  endTimeList = args.leaveTime.split(':')
-  arrive = {'h': int(startTimeList[0]), 'mi': int(startTimeList[1])}
-  depart = {'h': int(endTimeList[0]), 'mi': int(endTimeList[1])}
-  doy = {'y': int(dateList[0]), 'mo': int(dateList[1]), 'd': int(dateList[2])}
-  plans = plan(arrive, depart, doy, args.timeBetweenRides, rideDict)
-  # for ride in plans:
-  #   print(ride)
-  # print('Total value: {}'.format(sum(map(lambda x: x.val, plans))))

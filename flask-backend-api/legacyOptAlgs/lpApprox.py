@@ -3,24 +3,7 @@ from datetime import timedelta
 from scipy.optimize import linprog
 from datetime import datetime
 
-rideList = [
-  'bigthundermountainrailroad',
-  'starwarsriseoftheresistance',
-  'spacemountain',
-  'splashmountain',
-  'millenniumfalconsmugglersrun',
-  'matterhornbobsleds',
-  'indianajonesadventure',
-  'buzzlightyearastroblasters',
-  'startourstheadventurescontinue',
-  'junglecruise',
-  'mrtoadswildride',
-  'autopia',
-  'hauntedmansion',
-  'piratesofthecaribbean'
-]
-
-def lpApprox(jobsSorted, arrive, depart):
+def lpApprox(jobsSorted, arrive, depart, rideList):
   dayStart = datetime(2022, 4, 22, arrive['h'], arrive['mi'])
   dayEnd = datetime(2022, 4, 22, depart['h'], depart['mi'])
   fullMatList=[]

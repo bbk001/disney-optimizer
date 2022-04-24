@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setLoading, setData } from './waitTimePredictsSlice';
 import { isUpToDate } from '../../utils/funcs'
 import { parkClose, parkOpen } from '../../utils/consts';
+import fullRideInfo from '../../utils/fullRideInfo.json'
 
 export function loadWaitTimes(dispatch, doy) {
   const arrive = parkOpen;
@@ -16,7 +17,8 @@ export function loadWaitTimes(dispatch, doy) {
     body: JSON.stringify({
       arrive: arrive,
       depart: depart,
-      doy: doy
+      doy: doy,
+      rideDict: fullRideInfo
      })
   };
   dispatch(setLoading())

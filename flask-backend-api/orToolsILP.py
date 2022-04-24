@@ -3,24 +3,7 @@ from datetime import timedelta
 from datetime import datetime
 from ortools.sat.python import cp_model
 
-rideList = [
-  'bigthundermountainrailroad',
-  'starwarsriseoftheresistance',
-  'spacemountain',
-  'splashmountain',
-  'millenniumfalconsmugglersrun',
-  'matterhornbobsleds',
-  'indianajonesadventure',
-  'buzzlightyearastroblasters',
-  'startourstheadventurescontinue',
-  'junglecruise',
-  'mrtoadswildride',
-  'autopia',
-  'hauntedmansion',
-  'piratesofthecaribbean'
-]
-
-def lpApprox(jobsSorted, arrive, depart):
+def lpApprox(jobsSorted, arrive, depart, rideList):
   model = cp_model.CpModel()
   dayStart = datetime(2022, 4, 22, arrive['h'], arrive['mi'])
   dayEnd = datetime(2022, 4, 22, depart['h'], depart['mi'])
