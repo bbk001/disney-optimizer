@@ -1,3 +1,4 @@
+import './Plan.css';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { setLoading, createPlanList } from './planListSlice';
@@ -62,14 +63,16 @@ function Plan(props) {
         <thead>
           <tr>
             <th>Ride</th>
-            <th>Time</th>
+            <th>Get In Line At</th>
+            <th>Get Off Ride At</th>
           </tr>
         </thead>
         <tbody>
           {planList.map(ridePlan => 
             <tr key={ridePlan.rideName}>
-              <td key={ridePlan.rideName+'name'}>{ridePlan.rideName}</td>
-              <td key={ridePlan.rideName+'time'}>{ridePlan.startTime}</td>
+              <td key={ridePlan.rideName+'name'}>{fullRideInfo[ridePlan.rideName.replace(/[0-9]/g, '')].rideName}</td>
+              <td key={ridePlan.rideName+'timeStart'}>{ridePlan.startTime}</td>
+              <td key={ridePlan.rideName+'timeEnd'}>{ridePlan.endTime}</td>
             </tr>
           )}
         </tbody>
