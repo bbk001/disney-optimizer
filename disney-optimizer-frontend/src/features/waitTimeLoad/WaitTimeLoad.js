@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setLoading, updateData, resetData } from './waitTimePredictsSlice';
 import { isUpToDate } from '../../utils/funcs'
 import { parkClose, parkOpen } from '../../utils/consts';
-import fullRideInfo from '../../utils/fullRideInfo.json'
+
+const fullRideInfo = require('../../utils/fullRideInfo.json');
 
 export function loadWaitTimes(dispatch, doy) {
   const arrive = parkOpen;
@@ -11,7 +12,7 @@ export function loadWaitTimes(dispatch, doy) {
   let someRideInfo = {};
   let counter = 0;
   dispatch(resetData());
-  for (let key in fullRideInfo.keys()) {
+  for (const key in fullRideInfo.keys()) {
     someRideInfo[key] = fullRideInfo[key];
     counter+=1;
     if (counter%5==0) {
