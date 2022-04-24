@@ -8,9 +8,6 @@ disney-optimizer-frontend/.pnp/
 # testing
 disney-optimizer-frontend/coverage/
 
-# production
-disney-optimizer-frontend/build/
-
 # misc
 .DS_Store
 .env.local
