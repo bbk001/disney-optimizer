@@ -7,7 +7,7 @@ export const schedulingSlice = createSlice({
   initialState: {
     arrive: {h: 8, mi: 0},
     depart: {h: 23, mi: 50},
-    doy: {y: now.getFullYear(), mo: now.getMonth()+1, d: now.getDate()},
+    doy: JSON.parse(localStorage.getItem('doy-for')) || {y: now.getFullYear(), mo: now.getMonth()+1, d: now.getDate()},
     tbr: 30
   },
   reducers: {

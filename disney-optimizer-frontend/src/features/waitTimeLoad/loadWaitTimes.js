@@ -1,5 +1,5 @@
 import { parkClose, parkOpen } from '../../utils/consts';
-import { setLoading, updateData, resetData } from './waitTimePredictsSlice';
+import { setLoading, updateData, resetData, storeData } from './waitTimePredictsSlice';
 const fullRideInfo = require('../../utils/fullRideInfo.json');
 
 const numRequestsAtOnce = 3;
@@ -51,4 +51,5 @@ export default async function loadWaitTimes(dispatch, doy) {
   const finalRes = await fetch('/api/requestRidePredict', finalRequestRidePredictOptions)
   const finalData = await finalRes.json()
   dispatch(updateData({data: finalData, doy}));
+  dispatch(storeData())
 }

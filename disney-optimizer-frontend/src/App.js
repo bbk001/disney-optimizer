@@ -1,25 +1,21 @@
 import React from 'react';
 import './App.css';
-import Plan from './features/planList/Plan';
-import WaitTimeLoad from './features/waitTimeLoad/WaitTimeLoad';
-import Scheduling from './features/selectTiming/Scheduling';
+import { BrowserRouter as Router, Routes, Route}
+    from 'react-router-dom';
+import Planning from './pages/Planning';
+import Home from './pages/Home';
 //import Flatpickr from "react-flatpickr";
 
 function App() {
 
+
   return (
-    <div className="App">
-      {/* <Flatpickr
-        data-enable-time
-        value={date}
-        onChange={date => {
-          this.setState({ date });
-        }}
-      /> */}
-      <Scheduling />
-      <WaitTimeLoad />
-      <Plan />
-    </div>
+    <Router>
+    <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/planning' element={<Planning/>} />
+    </Routes>
+    </Router>
   );
 }
 
