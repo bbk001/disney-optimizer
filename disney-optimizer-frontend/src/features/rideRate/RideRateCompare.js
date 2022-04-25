@@ -5,7 +5,7 @@ function RideRateCompare({rideLeft, rideRight, setRideRightRating}) {
 
   return (
     <div>
-      <div className='explainer'>
+      <div className='explainer tripLine'>
         If the line for {rideLeft.rideName} were 60 minutes how 
         short would the line for {rideRight.rideName} need to 
         be for you to ride it instead:

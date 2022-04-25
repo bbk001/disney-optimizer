@@ -23,3 +23,8 @@ button.back:hover {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.tripLine {
+  min-height: calc(3rem + 10px); /* 1rem for each visible line */
+  margin-bottom: 0px;
+}

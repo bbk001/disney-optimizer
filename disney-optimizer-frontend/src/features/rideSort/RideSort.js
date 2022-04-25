@@ -15,7 +15,7 @@ function RideSort({setReadyToSort, setReadyToRate}) {
     <div className='page'>
       <button 
         onClick={()=>{
-          useDispatch(resetPlanList())
+          dispatch(resetPlanList())
           setReadyToSort(false)
         }}
         className='back'
