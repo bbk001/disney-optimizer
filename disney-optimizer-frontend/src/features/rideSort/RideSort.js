@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { getRideInfo } from '../../utils/funcs';
+import { resetPlanList } from '../planning/planList/planListSlice';
 import RideCompare from './RideCompare';
 
 function RideSort({setReadyToSort, setReadyToRate}) {
@@ -7,10 +9,15 @@ function RideSort({setReadyToSort, setReadyToRate}) {
   const rideList = Object.keys(rideInfo)
   const [insertSortData, setInsertSortData] = useState({i: 1, j: 0, key: rideList[1], list: rideList});
 
+  const dispatch = useDispatch()
+
   return (
     <div className='page'>
       <button 
-        onClick={()=>{setReadyToSort(false)}}
+        onClick={()=>{
+          useDispatch(resetPlanList())
+          setReadyToSort(false)
+        }}
         className='back'
       >&laquo; Back to Ride Selection</button>
       <RideCompare 

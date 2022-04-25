@@ -14,10 +14,13 @@ export const planListSlice = createSlice({
       state.planList = data.payload.planList
       state.loading = false
     },
+    resetPlanList: (state) => {
+      state.planList = []
+    }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setLoading, createPlanList } = planListSlice.actions
+export const { setLoading, createPlanList, resetPlanList } = planListSlice.actions
 
 export default planListSlice.reducer

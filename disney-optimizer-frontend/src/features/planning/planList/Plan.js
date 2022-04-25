@@ -9,9 +9,8 @@ function Plan() {
   const lastWTUpdate = useSelector((state) => state.waitTimePredicts.lastUpdate)
   const waitTimePredicts = useSelector((state) => state.waitTimePredicts.data)
   const planList = useSelector((state) => state.planList.planList)
-  const loading1 = useSelector((state) => state.planList.loading)
-  const loading2 = useSelector((state) => state.waitTimePredicts.loading)
-  const loading = loading1 || loading2
+  const loadingPlans = useSelector((state) => state.planList.loading)
+  const loadingWaitTimes = useSelector((state) => state.waitTimePredicts.loading)
   const doy = useSelector((state) => state.scheduling.doy)
   const arrive = useSelector((state) => state.scheduling.arrive)
   const depart = useSelector((state) => state.scheduling.depart)
@@ -60,8 +59,10 @@ function Plan() {
 
   const doysMatch = doy.y===doyLoadedFor.y && doy.mo===doyLoadedFor.mo && doy.d===doyLoadedFor.d
   let loadButton;
-  if (loading) {
-    loadButton = <div>Loading...</div>
+  if (loadingWaitTimes) {
+    loadButton = <div>Loading in predictions for wait times on {doy.mo}/{doy.d}...</div>
+  } else if (loadingPlans) {
+    loadButton = <div>Loading your plans...</div>
   } else {
     if (isUpToDate(lastWTUpdate) && doysMatch) {
       loadButton = <button onClick={makePlans}>Make Plans</button>
