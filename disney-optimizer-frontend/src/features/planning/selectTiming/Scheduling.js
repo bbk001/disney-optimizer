@@ -3,7 +3,7 @@ import "flatpickr/dist/themes/material_green.css";
 import React from 'react';
 import Flatpickr from "react-flatpickr";
 import { useSelector, useDispatch } from 'react-redux'
-import { minTime, maxTime } from "../../utils/consts";
+import { minTime, maxTime } from "../../../utils/consts";
 import { setArrival, setDeparture, setDoy, setTbr } from './schedulingSlice'
 
 const timePickerOptions = {

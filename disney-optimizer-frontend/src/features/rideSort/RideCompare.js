@@ -2,6 +2,7 @@ import React from 'react';
 import './RideCompare.css'
 
 function RideCompare({rideLeft, rideRight, pickLeft, pickRight}) {
+  console.log(rideLeft)
   return (
     <div>
       <div>If the lines were the same length would you prefer to ride:</div>

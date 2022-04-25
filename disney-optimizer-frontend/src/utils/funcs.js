@@ -5,11 +5,23 @@ export function isUpToDate(lastUpdate) {
 }
 
 export function getRideInfo() {
-  const excludedRides = localStorage.getItem('excluded-rides') || []
+  const excludedRides = JSON.parse(localStorage.getItem('excluded-rides')) || [];
+  const ridesSorted = JSON.parse(localStorage.getItem('sorted-rides'));
+  const ridesRates = JSON.parse(localStorage.getItem('ride-ratings'));
+  const ridesAreRated = ridesSorted && ridesRates;
+  let rideRatesDict = {};
+  if (ridesAreRated) {
+    for (let idx = 0; idx < ridesSorted.length; idx++) {
+      rideRatesDict[ridesSorted[idx]] = ridesRates[idx];
+    }
+  }
   let usableRideInfo = {}
   for (const ride in fullRideInfo) {
     if (!excludedRides.includes(ride)) {
       usableRideInfo[ride] = fullRideInfo[ride]
+      if (ridesAreRated) {
+        usableRideInfo[ride].rideVals = new Array(3).fill(rideRatesDict[ride])
+      }
     }
   }
   return usableRideInfo

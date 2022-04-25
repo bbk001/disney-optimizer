@@ -1,5 +1,5 @@
-import { parkClose, parkOpen } from '../../utils/consts';
-import { getRideInfo } from '../../utils/funcs';
+import { parkClose, parkOpen } from '../../../utils/consts';
+import { getRideInfo } from '../../../utils/funcs';
 import { setLoading, updateData, resetData, storeData } from './waitTimePredictsSlice';
 
 const numRequestsAtOnce = 3;

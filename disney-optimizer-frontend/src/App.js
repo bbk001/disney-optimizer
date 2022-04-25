@@ -1,22 +1,31 @@
-import React from 'react';
-import './App.css';
-import { BrowserRouter as Router, Routes, Route}
-    from 'react-router-dom';
-import Planning from './pages/Planning';
-import Home from './pages/Home';
-//import Flatpickr from "react-flatpickr";
+import React, { useState } from 'react';
+import RideRate from './features/rideRate/RideRate';
+import DeselectRides from './features/rideSelection/DeselectRides';
+import RideSort from './features/rideSort/RideSort';
+import Planning from './features/planning/Planning';
 
-function App() {
+function RankingRides() {
+  const [readyToPlan, setReadyToPlan] = useState(JSON.parse(localStorage.getItem('ride-ratings')));
+  const [readyToRate, setReadyToRate] = useState(JSON.parse(localStorage.getItem('sorted-rides')));
+  const [readyToSort, setReadyToSort] = useState(JSON.parse(localStorage.getItem('excluded-rides')));
 
-
-  return (
-    <Router>
-    <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/planning' element={<Planning/>} />
-    </Routes>
-    </Router>
-  );
+  if (readyToPlan) {
+    return (
+      <Planning setReadyToPlan={setReadyToPlan}/>
+    )
+  } else if (readyToRate) {
+    return (
+      <RideRate setReadyToRate={setReadyToRate} setReadyToPlan={setReadyToPlan}/>
+    )
+  } else if (readyToSort) {
+    return (
+      <RideSort setReadyToSort={setReadyToSort} setReadyToRate={setReadyToRate}/>
+    )
+  } else {
+    return (
+      <DeselectRides setReadyToSort={setReadyToSort}/>
+    )
+  }
 }
 
-export default App;
+export default RankingRides

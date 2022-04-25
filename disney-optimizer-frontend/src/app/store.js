@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
-import waitTimePredictsSlice from '../features/waitTimeLoad/waitTimePredictsSlice'
-import planListSlice from '../features/planList/planListSlice'
-import schedulingSlice from '../features/selectTiming/schedulingSlice'
+import planListSlice from '../features/planning/planList/planListSlice'
+import schedulingSlice from '../features/planning/selectTiming/schedulingSlice'
+import waitTimePredictsSlice from '../features/planning/waitTimeLoad/waitTimePredictsSlice'
 
 export default configureStore({
   reducer: {

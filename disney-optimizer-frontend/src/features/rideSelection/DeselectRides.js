@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { getRideInfo } from '../../utils/funcs';
 
-function DeselectRides({setReadyToRank}) {
-  const [rideInfo, setRideInfo] = useState(getRideInfo());
+function DeselectRides({setReadyToSort}) {
+  const [excludedRides, setExcludedRides] = useState(JSON.parse(localStorage.getItem('excluded-rides')) || []);
+  const rideInfo = getRideInfo();
+  console.log(excludedRides)
 
   return (
     <div>
@@ -10,29 +12,28 @@ function DeselectRides({setReadyToRank}) {
       <table>
         <tbody>
           {Object.keys(rideInfo).map(ride => 
-            <tr key={ride}>
-              <td>{rideInfo[ride].rideName}</td>
-              <td>
-                <button 
-                  onClick={() => {
-                    let excludedRides = JSON.parse(localStorage.getItem('excluded-rides')) || []
-                    excludedRides.push(ride)
-                    localStorage.setItem('excluded-rides', JSON.stringify(excludedRides))
-                    setRideInfo(getRideInfo())
-                  }}
-                >Remove</button>
-              </td>
-            </tr>
+            excludedRides.includes(ride) ? null :
+              <tr key={ride}>
+                <td>{rideInfo[ride].rideName}</td>
+                <td>
+                  <button 
+                    onClick={() => setExcludedRides([...excludedRides, ride])}
+                  >Remove</button>
+                </td>
+              </tr>
           )}
         </tbody>
       </table>
       <button
-        onClick={()=>{
-          localStorage.setItem('ready-to-rank', true)
-          setReadyToRank(true)
+        onClick={()=> {
+          localStorage.setItem('excluded-rides', JSON.stringify(excludedRides))
+          setReadyToSort(true)
         }}
       >Continue</button>
-      <button onClick={()=>localStorage.setItem('excluded-rides', JSON.stringify([]))}>
+      <button onClick={()=> {
+        localStorage.removeItem('excluded-rides')
+        setExcludedRides([])
+      }}>
         Reset Selections
       </button>
     </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { isUpToDate } from '../../utils/funcs'
+import { isUpToDate } from '../../../utils/funcs'
 import loadWaitTimes from './loadWaitTimes';
 
 function WaitTimeLoad() {
