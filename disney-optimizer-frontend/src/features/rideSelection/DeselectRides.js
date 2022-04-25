@@ -4,7 +4,6 @@ import { getRideInfo } from '../../utils/funcs';
 function DeselectRides({setReadyToSort}) {
   const [excludedRides, setExcludedRides] = useState(JSON.parse(localStorage.getItem('excluded-rides')) || []);
   const rideInfo = getRideInfo();
-  console.log(excludedRides)
 
   return (
     <div className='page'>
