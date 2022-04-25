@@ -1,30 +1,75 @@
+.app-container {
+  min-height: 100vh;
+  background-image: url('../public/background.jpeg');
+  background-size: 100px;
+  padding: 15px;
+}
+
 .page {
   max-width: 500px;
-  margin: 10px;
 }
 
-button.back {
+button {
   all: unset;
   cursor: pointer;
+  display: inline-block;
   background-color: rgb(190, 190, 190);
   color: black;
-  border-radius: 10px;
   text-decoration: none;
-  display: inline-block;
-  padding: 5px 10px;
+  border-radius: 5px;
+  padding: 5px 5px;
+  margin: 5px;
 }
 
-button.back:hover {
+button:hover {
   background-color: rgb(150, 150, 150);
   color: black;
 }
 
+button.back {
+  border-radius: 10px;
+  padding: 5px 10px;
+}
+
+button.sort-option {
+  border-radius: 5px;
+  padding: 5px 0px;
+  text-align: center;
+  min-width: 200px;
+}
+
 .explainer {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 3px;
+  background-color: rgb(191, 228, 249);
 }
 
 .tripLine {
   min-height: calc(3rem + 10px); /* 1rem for each visible line */
   margin-bottom: 0px;
+}
+
+.or {
+  display: inline-block;
+  padding: 5px;
+}
+
+table {
+  text-align: center;
+  border-collapse: collapse;
+  background-color: rgb(191, 228, 249);
+}
+
+tr {
+  padding: 10px;
+  border: 1px solid black;
+}
+
+th {
+  padding: 8px;
+}
+
+td {
+  padding: 5px;
 }

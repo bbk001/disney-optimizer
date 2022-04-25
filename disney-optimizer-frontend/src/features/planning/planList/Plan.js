@@ -1,4 +1,3 @@
-import './Plan.css';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { setLoading, createPlanList } from './planListSlice';

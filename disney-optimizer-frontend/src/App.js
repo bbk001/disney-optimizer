@@ -10,23 +10,21 @@ function RankingRides() {
   const [readyToRate, setReadyToRate] = useState(JSON.parse(localStorage.getItem('sorted-rides')));
   const [readyToSort, setReadyToSort] = useState(JSON.parse(localStorage.getItem('excluded-rides')));
 
+  let body;
   if (readyToPlan) {
-    return (
-      <Planning setReadyToPlan={setReadyToPlan}/>
-    )
+    body = <Planning setReadyToPlan={setReadyToPlan}/>
   } else if (readyToRate) {
-    return (
-      <RideRate setReadyToRate={setReadyToRate} setReadyToPlan={setReadyToPlan}/>
-    )
+    body = <RideRate setReadyToRate={setReadyToRate} setReadyToPlan={setReadyToPlan}/>
   } else if (readyToSort) {
-    return (
-      <RideSort setReadyToSort={setReadyToSort} setReadyToRate={setReadyToRate}/>
-    )
+    body = <RideSort setReadyToSort={setReadyToSort} setReadyToRate={setReadyToRate}/>
   } else {
-    return (
-      <DeselectRides setReadyToSort={setReadyToSort}/>
-    )
+    body = <DeselectRides setReadyToSort={setReadyToSort}/>
   }
+  return (
+    <div className='app-container'>
+      {body}
+    </div>
+  )
 }
 
 export default RankingRides

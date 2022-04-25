@@ -1,4 +1,4 @@
-export const parkOpen = {h: 8, mi: 0}
+export const parkOpen = {h: 7, mi: 50}
 export const parkClose = {h: 23, mi: 50}
 
 const minTime = new Date()

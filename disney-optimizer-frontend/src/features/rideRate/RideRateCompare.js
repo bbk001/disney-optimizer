@@ -6,8 +6,8 @@ function RideRateCompare({rideLeft, rideRight, setRideRightRating}) {
   return (
     <div>
       <div className='explainer tripLine'>
-        If the line for {rideLeft.rideName} were 60 minutes how 
-        short would the line for {rideRight.rideName} need to 
+        If the line for <b>{rideLeft.rideName}</b> were 60 minutes how 
+        short would the line for <b>{rideRight.rideName}</b> need to 
         be for you to ride it instead:
       </div>
         <input 
