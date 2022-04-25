@@ -22,7 +22,7 @@ def makeJobs(arrive, depart, rideWaitTimes, timeBetweenRides, rideValsDict):
     vals = rideValsDict[rideName]['rideVals']
     for wt in waitTimes[skipUntil:endOn]:
       if wt:
-        endTime = timeOfDay+timedelta(minutes=timeBetweenRides)+timedelta(minutes=wt)
+        endTime = timeOfDay+timedelta(minutes=int(timeBetweenRides))+timedelta(minutes=wt)
         jobList.append(Job(timeOfDay, endTime, vals[0], rideName, timeBetweenRides))
         jobList.append(Job(timeOfDay, endTime, vals[1], rideName+'2', timeBetweenRides))
         jobList.append(Job(timeOfDay, endTime, vals[2], rideName+'3', timeBetweenRides))

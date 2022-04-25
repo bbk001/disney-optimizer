@@ -6,7 +6,7 @@ class Job:
     self.end = endTime
     self.val = value
     self.ride = ride
-    self.tbr = timeBetweenRides
+    self.tbr = int(timeBetweenRides)
   
   def __str__(self) -> str:
     startRide = self.start.strftime('%H:%M')

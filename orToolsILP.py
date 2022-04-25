@@ -11,7 +11,7 @@ def lpApprox(jobsSorted, arrive, depart, rideList):
   objectiveVecList=[]
   vars = {}
   for job in jobsSorted:
-    if (job.end-timedelta(minutes=job.tbr*0.8))<=dayEnd:
+    if (job.end-timedelta(minutes=int(job.tbr)*0.8))<=dayEnd:
       currentTime = dayStart
       columnVec=[]
       newVar = model.NewIntVar(0, 1, job.ride+job.start.strftime('%H:%M'))
