@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Disneyland Optimizer",
+  "name": "Plan The Optimal Day At Disneyland",
   "icons": [
     {
       "src": "favicon.ico",
@@ -15,6 +15,16 @@
     {
       "src": "logo512.png",
       "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "Logo-192.jpeg",
+      "type": "image/jpeg",
+      "sizes": "192x192"
+    },
+    {
+      "src": "Logo-512.jpeg",
+      "type": "image/jpeg",
       "sizes": "512x512"
     }
   ],
