@@ -1,6 +1,6 @@
 import { parkClose, parkOpen } from '../../utils/consts';
+import { getRideInfo } from '../../utils/funcs';
 import { setLoading, updateData, resetData, storeData } from './waitTimePredictsSlice';
-const fullRideInfo = require('../../utils/fullRideInfo.json');
 
 const numRequestsAtOnce = 3;
 
@@ -10,8 +10,8 @@ export default async function loadWaitTimes(dispatch, doy) {
   let someRideInfo = {};
   let counter = 0;
   dispatch(resetData());
-  for (let key in fullRideInfo) {
-    someRideInfo[key] = fullRideInfo[key];
+  for (let key in getRideInfo()) {
+    someRideInfo[key] = getRideInfo()[key];
     counter+=1;
     if (counter%numRequestsAtOnce===0) {
       const requestRidePredictOptions = {

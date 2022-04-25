@@ -1,15 +1,91 @@
 {
+  "madteaparty": {
+    "rideVals": [15,5,1],
+    "rideName": "Tea Cups"
+  },
+  "kingarthurcarrousel": {
+    "rideVals": [15,5,1],
+    "rideName": "Fantasyland Carrousel"
+  },
+  "caseyjrcircustrain": {
+    "rideVals": [20, 10, 5],
+    "rideName": "Casey Jr. Train"
+  },
+  "storybooklandcanalboats": {
+    "rideVals": [20,10,5],
+    "rideName": "Storybookland Canal Boats"
+  },
+  "dumbotheflyingelephant": {
+    "rideVals": [15,5,1],
+    "rideName": "Dumbo"
+  },
+  "aliceinwonderland": {
+    "rideVals": [25,10,5],
+    "rideName": "Alice in Wonderland"
+  },
+  "themanyadventuresofwinniethepooh": {
+    "rideVals": [25,10,5],
+    "rideName": "Winnie The Pooh"
+  },
+  "snowwhitesenchantedwish": {
+    "rideVals": [30,15,10],
+    "rideName": "Snow White"
+  },
+  "pinocchiosdaringjourney": {
+    "rideVals": [30,15,10],
+    "rideName": "Pinocchio"
+  },
+  "itsasmallworld": {
+    "rideVals": [30,15,10],
+    "rideName": "It's a Small World"
+  },
+  "astroorbitor": {
+    "rideVals": [20,10,5],
+    "rideName": "Astro Orbiter"
+  },
+  "autopia": {
+    "rideVals": [40,25,15],
+    "rideName": "Autopia"
+  },
+  "junglecruise": {
+    "rideVals": [45,35,25],
+    "rideName": "Jungle Cruise"
+  },
+  "mrtoadswildride": {
+    "rideVals": [35,20,10],
+    "rideName": "Mr. Toad's Wild Ride"
+  },
+  "peterpansflight": {
+    "rideVals": [35,20,10],
+    "rideName": "Peter Pan"
+  },
+  "startourstheadventurescontinue": {
+    "rideVals": [45,35,25],
+    "rideName": "Star Tours"
+  },
+  "hauntedmansion": {
+    "rideVals": [55,45,30],
+    "rideName": "Haunted Mansion"
+  },
+  "buzzlightyearastroblasters": {
+    "rideVals": [52,45,40],
+    "rideName": "Astro Blasters"
+  },
+  "indianajonesadventure": {
+    "rideVals": [70,45,35],
+    "rideName": "Indiana Jones"
+  },
+  "piratesofthecaribbean": {
+    "rideVals": [55,45,30],
+    "rideName": "Pirates of The Caribbean"
+  },
   "bigthundermountainrailroad": {
     "rideVals": [70,50,40],
     "rideName": "Thunder Mountain"
   },
-  "starwarsriseoftheresistance": {
-    "rideVals": [110,60,50],
-    "rideName": "Rise of The Resistance"
-  },
-  "spacemountain": {
-    "rideVals": [100,75,65],
-    "rideName": "Space Mountain"
+  "matterhornbobsleds": {
+    "rideVals": [72,55,45],
+    "rideName": "The Matterhorn"
   },
   "splashmountain": {
     "rideVals": [75,55,45],
@@ -19,88 +95,12 @@
     "rideVals": [80,40,30],
     "rideName": "Smuggler's Run"
   },
-  "matterhornbobsleds": {
-    "rideVals": [72,55,45],
-    "rideName": "The Matterhorn"
+  "spacemountain": {
+    "rideVals": [100,75,65],
+    "rideName": "Space Mountain"
   },
-  "indianajonesadventure": {
-    "rideVals": [70,45,35],
-    "rideName": "Indiana Jones"
-  },
-  "buzzlightyearastroblasters": {
-    "rideVals": [52,45,40],
-    "rideName": "Astro Blasters"
-  },
-  "startourstheadventurescontinue": {
-    "rideVals": [45,35,25],
-    "rideName": "Star Tours"
-  },
-  "junglecruise": {
-    "rideVals": [45,35,25],
-    "rideName": "Jungle Cruis"
-  },
-  "hauntedmansion": {
-    "rideVals": [55,45,30],
-    "rideName": "Haunted Mansion"
-  },
-  "piratesofthecaribbean": {
-    "rideVals": [55,45,30],
-    "rideName": "Pirates of The Caribbean"
-  },
-  "mrtoadswildride": {
-    "rideVals": [35,20,10],
-    "rideName": "Mr. Toad's Wild Ride"
-  },
-  "autopia": {
-    "rideVals": [40,25,15],
-    "rideName": "Autopia"
-  },
-  "snowwhitesenchantedwish": {
-    "rideVals": [30,15,10],
-    "rideName": "Snow White"
-  },
-  "storybooklandcanalboats": {
-    "rideVals": [20,10,5],
-    "rideName": "Storybookland Canal Boats"
-  },
-  "themanyadventuresofwinniethepooh": {
-    "rideVals": [25,10,5],
-    "rideName": "Winnie The Pooh"
-  },
-  "pinocchiosdaringjourney": {
-    "rideVals": [30,15,10],
-    "rideName": "Pinocchio"
-  },
-  "peterpansflight": {
-    "rideVals": [35,20,10],
-    "rideName": "Peter Pan"
-  },
-  "madteaparty": {
-    "rideVals": [15,5,1],
-    "rideName": "Tea Cups"
-  },
-  "kingarthurcarrousel": {
-    "rideVals": [15,5,1],
-    "rideName": "Fantasyland Carrousel"
-  },
-  "dumbotheflyingelephant": {
-    "rideVals": [15,5,1],
-    "rideName": "Dumbo"
-  },
-  "caseyjrcircustrain": {
-    "rideVals": [20, 10, 5],
-    "rideName": "Casey Jr. Train"
-  },
-  "astroorbitor": {
-    "rideVals": [20,10,5],
-    "rideName": "Astro Orbiter"
-  },
-  "aliceinwonderland": {
-    "rideVals": [25,10,5],
-    "rideName": "Alice in Wonderland"
-  },
-  "itsasmallworld": {
-    "rideVals": [30,15,10],
-    "rideName": "It's a Small World"
+  "starwarsriseoftheresistance": {
+    "rideVals": [110,60,50],
+    "rideName": "Rise of The Resistance"
   }
 }

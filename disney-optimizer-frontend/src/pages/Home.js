@@ -1,8 +1,9 @@
 import React from 'react';
+import RankingRides from './RankingRides';
 
 function Home() {
   return (
-    <div>Hello</div>
+    <RankingRides />
   )
 }
 

@@ -3,7 +3,7 @@ import "flatpickr/dist/themes/material_green.css";
 import React from 'react';
 import Flatpickr from "react-flatpickr";
 import { useSelector, useDispatch } from 'react-redux'
-import { minTime, maxTime, zeroTime } from "../../utils/consts";
+import { minTime, maxTime } from "../../utils/consts";
 import { setArrival, setDeparture, setDoy, setTbr } from './schedulingSlice'
 
 const timePickerOptions = {
@@ -32,9 +32,6 @@ function Scheduling() {
   const departDate = new Date()
   departDate.setHours(depart.h)
   departDate.setMinutes(depart.mi)
-  const tbrDate = new Date()
-  tbrDate.setHours(Math.floor(tbr/60))
-  tbrDate.setMinutes(tbr % 60)
 
   const dispatch = useDispatch();
 
@@ -78,17 +75,23 @@ function Scheduling() {
         />
       </div>
       <div>
-        <div>Choose how much time you will take between rides:</div>
-        <Flatpickr
+        <div>Choose how much time you will take between rides in minutes:</div>
+        <input 
+          type="number" 
+          key="tbr" 
+          value={tbr} 
+          onChange={tbrNew => dispatch(setTbr(tbrNew.target.value))}
+          step={5}
+        />
+        {/* <Flatpickr
           data-enable-time
-          key='depart-picker'
-          options={{...timePickerOptions, minDate: zeroTime}}
+          options={{...timePickerOptions, minDate: zeroTime, minuteIncrement: 5}}
           value={tbrDate}
           onChange={tbrDate => {
             const date = tbrDate[0]
             dispatch(setTbr(date.getHours()*60+date.getMinutes()))
           }}
-        />
+        /> */}
       </div>
     </div>
   )

@@ -2,8 +2,7 @@ import './Plan.css';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { setLoading, createPlanList } from './planListSlice';
-import { isUpToDate } from '../../utils/funcs'
-import fullRideInfo from '../../utils/fullRideInfo.json'
+import { getRideInfo, isUpToDate } from '../../utils/funcs'
 import loadWaitTimes from '../waitTimeLoad/loadWaitTimes';
 
 function Plan(props) {
@@ -26,7 +25,7 @@ function Plan(props) {
     depart: depart,
     rideWaitTimes: waitTimePredicts,
     tbr: tbr,
-    rideDict: fullRideInfo
+    rideDict: getRideInfo()
   }
 
   function makePlans() {
@@ -72,7 +71,7 @@ function Plan(props) {
         <tbody>
           {planList.map(ridePlan => 
             <tr key={ridePlan.rideName}>
-              <td key={ridePlan.rideName+'name'}>{fullRideInfo[ridePlan.rideName.replace(/[0-9]/g, '')].rideName}</td>
+              <td key={ridePlan.rideName+'name'}>{getRideInfo()[ridePlan.rideName.replace(/[0-9]/g, '')].rideName}</td>
               <td key={ridePlan.rideName+'timeStart'}>{ridePlan.startTime}</td>
               <td key={ridePlan.rideName+'timeEnd'}>{ridePlan.endTime}</td>
             </tr>

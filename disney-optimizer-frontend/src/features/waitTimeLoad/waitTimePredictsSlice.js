@@ -5,7 +5,7 @@ export const waitTimePredictsSlice = createSlice({
   initialState: {
     data: JSON.parse(localStorage.getItem('wt-data')) || {},
     loading: false,
-    lastUpdate: JSON.parse(localStorage.getItem('last-update')).lastUpdate || 0,
+    lastUpdate: localStorage.getItem('last-update') || 0,
     doyFor: JSON.parse(localStorage.getItem('doy-for')) || {y: 0, mo: 1, d: 1}
   },
   reducers: {
@@ -20,11 +20,11 @@ export const waitTimePredictsSlice = createSlice({
     },
     resetData: (state) => {
       state.data = {}
-      localStorage.setItem('wt-data', state.data)
+      localStorage.setItem('wt-data', JSON.stringify(state.data))
     },
     storeData: (state) => {
       localStorage.setItem('doy-for', JSON.stringify(state.doyFor))
-      localStorage.setItem('last-update', JSON.stringify({lastUpdate: state.lastUpdate}))
+      localStorage.setItem('last-update', state.lastUpdate)
       localStorage.setItem('wt-data', JSON.stringify(state.data))
     }
   },
