@@ -5,6 +5,7 @@ export function isUpToDate(lastUpdate) {
 }
 
 export function getRideInfo() {
+  const rideDecay = 2/3
   const excludedRides = JSON.parse(localStorage.getItem('excluded-rides')) || [];
   const ridesSorted = JSON.parse(localStorage.getItem('sorted-rides'));
   const ridesRates = JSON.parse(localStorage.getItem('ride-ratings'));
@@ -20,7 +21,8 @@ export function getRideInfo() {
     if (!excludedRides.includes(ride)) {
       usableRideInfo[ride] = fullRideInfo[ride]
       if (ridesAreRated) {
-        usableRideInfo[ride].rideVals = new Array(3).fill(rideRatesDict[ride])
+        const rideVal = rideRatesDict[ride]
+        usableRideInfo[ride].rideVals = [rideVal, rideVal*rideDecay, rideVal*rideDecay*rideDecay]
       }
     }
   }
