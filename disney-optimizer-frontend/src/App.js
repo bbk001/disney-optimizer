@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './App.css';
 import RideRate from './features/rideRate/RideRate';
 import DeselectRides from './features/rideSelection/DeselectRides';
 import RideSort from './features/rideSort/RideSort';

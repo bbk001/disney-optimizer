@@ -7,8 +7,8 @@ function DeselectRides({setReadyToSort}) {
   console.log(excludedRides)
 
   return (
-    <div>
-      <div>First select any rides you are not interested in even if the line is short.</div>
+    <div className='page'>
+      <div className='explainer'>First select any rides you are not interested in even if the line is short.</div>
       <table>
         <tbody>
           {Object.keys(rideInfo).map(ride => 

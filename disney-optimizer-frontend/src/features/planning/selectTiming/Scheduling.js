@@ -38,7 +38,7 @@ function Scheduling() {
   return (
     <div>
       <div>
-        <div>Choose which day you will go:</div>
+        <div className="explainer">Choose which day you will go:</div>
         <Flatpickr
           key='date-picker'
           value={date}
@@ -49,7 +49,7 @@ function Scheduling() {
         />
       </div>
       <div>
-        <div>Choose roughly when you will arrive:</div>
+        <div className="explainer">Choose roughly when you will arrive:</div>
         <Flatpickr
           data-enable-time
           key='arrive-picker'
@@ -62,7 +62,7 @@ function Scheduling() {
         />
       </div>
       <div>
-        <div>Choose roughly when you will leave:</div>
+        <div className="explainer">Choose roughly when you will leave:</div>
         <Flatpickr
           data-enable-time
           key='depart-picker'
@@ -75,7 +75,7 @@ function Scheduling() {
         />
       </div>
       <div>
-        <div>Choose how much time you will take between rides in minutes:</div>
+        <div className="explainer">Choose how much time you will take between rides in minutes:</div>
         <input 
           type="number" 
           key="tbr" 

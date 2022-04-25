@@ -20,16 +20,27 @@ function Plan() {
 
   const dispatch = useDispatch();
 
-  const requestBody = {
-    arrive: arrive,
-    depart: depart,
-    rideWaitTimes: waitTimePredicts,
-    tbr: tbr,
-    rideDict: getRideInfo()
-  }
 
   function makePlans() {
-    if (isUpToDate(lastWTUpdate)) {
+    const requestBody = {
+      arrive: arrive,
+      depart: depart,
+      rideWaitTimes: waitTimePredicts,
+      tbr: tbr,
+      rideDict: getRideInfo()
+    }
+    let hasAllInfo = true;
+    for (const ride in requestBody.rideDict) {
+      hasAllInfo = hasAllInfo && waitTimePredicts.hasOwnProperty(ride);
+    }  
+    if (isUpToDate(lastWTUpdate) && hasAllInfo) {
+      const requestBody = {
+        arrive: arrive,
+        depart: depart,
+        rideWaitTimes: waitTimePredicts,
+        tbr: tbr,
+        rideDict: getRideInfo()
+      }
       const requestPlanOptions = {
         method: 'POST',
         headers: {

@@ -8,10 +8,11 @@ function RideSort({setReadyToSort, setReadyToRate}) {
   const [insertSortData, setInsertSortData] = useState({i: 1, j: 0, key: rideList[1], list: rideList});
 
   return (
-    <div>
-      <button onClick={()=>{
-        setReadyToSort(false)
-      }}>Back to Ride Selection</button>
+    <div className='page'>
+      <button 
+        onClick={()=>{setReadyToSort(false)}}
+        className='back'
+      >&laquo; Back to Ride Selection</button>
       <RideCompare 
         rideLeft={rideInfo[insertSortData.key]}
         rideRight={rideInfo[insertSortData.list[insertSortData.j]]}

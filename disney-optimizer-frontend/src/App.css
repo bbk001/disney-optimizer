@@ -1,0 +1,25 @@
+.page {
+  max-width: 500px;
+  margin: 10px;
+}
+
+button.back {
+  all: unset;
+  cursor: pointer;
+  background-color: rgb(190, 190, 190);
+  color: black;
+  border-radius: 10px;
+  text-decoration: none;
+  display: inline-block;
+  padding: 5px 10px;
+}
+
+button.back:hover {
+  background-color: rgb(150, 150, 150);
+  color: black;
+}
+
+.explainer {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

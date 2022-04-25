@@ -8,11 +8,14 @@ function RideRate({setReadyToRate, setReadyToPlan}) {
   const [rideRateData, setRideRateData] = useState({i: 0, listOfRatings: [1000]});
 
   return (
-    <div>
-      <button onClick={()=>{
-        localStorage.removeItem('sorted-rides')
-        setReadyToRate(false)
-      }}>Back to Ride Sorting</button>
+    <div className='page'>
+      <button 
+        onClick={()=>{
+          localStorage.removeItem('sorted-rides')
+          setReadyToRate(false)
+        }}
+        className='back'
+      >&laquo; Back to Ride Sorting</button>
       <RideRateCompare 
         rideLeft={rideInfo[rideOrder[rideRateData.i]]}
         rideRight={rideInfo[rideOrder[rideRateData.i+1]]}
