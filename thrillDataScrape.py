@@ -71,10 +71,11 @@ def getWaitTimePredict(ride, park='disneyland', dateTimesToCheck=[datetime.now()
     textLeft = textLeft[textLeft.find("y\\\":["):]
     textLeft = textLeft[4:textLeft.find(",\\\"yaxis")]
     try:
-      listOfTimes = json.loads(textLeft)
+      disneyForecasts = json.loads(textLeft)
     except:
-      listOfTimes = []
+      disneyForecasts = []
   lastYield = 100
+  dForecastsRatio = 1
   for dateTimeToCheck in dateTimesToCheck:
     h = dateTimeToCheck.hour
     mi = int(dateTimeToCheck.minute/10)*10
@@ -93,12 +94,14 @@ def getWaitTimePredict(ride, park='disneyland', dateTimesToCheck=[datetime.now()
         predictionList.sort()
         if len(predictionList)>2:
           lastYield = int(np.sqrt(np.mean(np.array(predictionList[1:-1])**2)))
+          if len(disneyForecasts)>=15:
+            dForecastsRatio = dForecastsRatio*0.98 + 0.02*(lastYield/disneyForecasts[int(h)-8])
         else:
           lastYield = lastYield*1.1
       except:
         lastYield = lastYield*1.1
-    elif len(listOfTimes)>0:
-      lastYield = listOfTimes[-1] if int(h)>22 else listOfTimes[-2]
+    elif len(disneyForecasts)>0:
+      lastYield = (disneyForecasts[-1] if int(h)>22 else disneyForecasts[-2])*dForecastsRatio
     else:
       lastYield = lastYield*0.9
     yield lastYield
