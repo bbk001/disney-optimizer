@@ -35,7 +35,7 @@ headers = {
 
 def getWaitTimePredict(ride, park='disneyland', dateTimesToCheck=[datetime.now()]):
   now = datetime.now()
-  
+
   y = dateTimesToCheck[0].year
   mo = dateTimesToCheck[0].month
   d = dateTimesToCheck[0].day
@@ -70,7 +70,10 @@ def getWaitTimePredict(ride, park='disneyland', dateTimesToCheck=[datetime.now()
     textLeft = textLeft[textLeft.find("Disney Forecast"):]
     textLeft = textLeft[textLeft.find("y\\\":["):]
     textLeft = textLeft[4:textLeft.find(",\\\"yaxis")]
-    listOfTimes = json.loads(textLeft)
+    try:
+      listOfTimes = json.loads(textLeft)
+    except:
+      listOfTimes = [None, None]
   for dateTimeToCheck in dateTimesToCheck:
     h = dateTimeToCheck.hour
     mi = int(dateTimeToCheck.minute/10)*10
