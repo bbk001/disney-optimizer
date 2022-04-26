@@ -35,6 +35,7 @@ headers = {
 
 def getWaitTimePredict(ride, park='disneyland', dateTimesToCheck=[datetime.now()]):
   now = datetime.now()
+  
   y = dateTimesToCheck[0].year
   mo = dateTimesToCheck[0].month
   d = dateTimesToCheck[0].day
