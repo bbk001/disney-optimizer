@@ -79,7 +79,7 @@ def getWaitTimePredict(ride, park='disneyland', dateTimesToCheck=[datetime.now()
   for dateTimeToCheck in dateTimesToCheck:
     h = dateTimeToCheck.hour
     mi = int(dateTimeToCheck.minute/10)*10
-    if int(h)<22 or forFuture:
+    if int(h)<22:
       predictionList = []
       for line in fullListOfLines:
         waitTimeDict = dict(zip(map(lambda x: datetime.strptime(x[:-4]+'0', '%Y-%m-%dT%H:%M'), line['x']), line['y']))
@@ -95,7 +95,7 @@ def getWaitTimePredict(ride, park='disneyland', dateTimesToCheck=[datetime.now()
         if len(predictionList)>2:
           lastYield = int(np.sqrt(np.mean(np.array(predictionList[1:-1])**2)))
           if len(disneyForecasts)>=15:
-            dForecastsRatio = dForecastsRatio*0.98 + 0.02*(lastYield/disneyForecasts[int(h)-8])
+            dForecastsRatio = dForecastsRatio*0.95 + 0.05*(lastYield/disneyForecasts[int(h)-8])
         else:
           lastYield = lastYield*1.1
       except:
