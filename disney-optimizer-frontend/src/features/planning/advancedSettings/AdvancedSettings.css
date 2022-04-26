@@ -1,0 +1,7 @@
+.segmented-control {
+  background-color: rgb(191, 228, 249);
+}
+
+.segmented-control label {
+  line-height: normal;
+}

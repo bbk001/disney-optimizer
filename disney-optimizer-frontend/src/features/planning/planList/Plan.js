@@ -15,6 +15,7 @@ function Plan() {
   const depart = useSelector((state) => state.scheduling.depart)
   const doyLoadedFor = useSelector((state) => state.waitTimePredicts.doyFor);
   const tbr = useSelector((state) => state.scheduling.tbr);
+  const multiRidePrefs = useSelector((state) => state.advancedSettings.multiRidePrefs)
 
   const dispatch = useDispatch();
 
@@ -25,20 +26,14 @@ function Plan() {
       depart: depart,
       rideWaitTimes: waitTimePredicts,
       tbr: tbr,
-      rideDict: getRideInfo()
+      rideDict: getRideInfo(),
+      rideDecay: multiRidePrefs      
     }
     let hasAllInfo = true;
     for (const ride in requestBody.rideDict) {
       hasAllInfo = hasAllInfo && waitTimePredicts.hasOwnProperty(ride);
     }  
     if (isUpToDate(lastWTUpdate) && hasAllInfo) {
-      const requestBody = {
-        arrive: arrive,
-        depart: depart,
-        rideWaitTimes: waitTimePredicts,
-        tbr: tbr,
-        rideDict: getRideInfo()
-      }
       const requestPlanOptions = {
         method: 'POST',
         headers: {

@@ -30,7 +30,7 @@ def requestPlans():
   rideWaitTimes = request.json['rideWaitTimes']
   arrive = request.json['arrive']
   depart = request.json['depart']
-  jobList = makeJobs(arrive, depart, rideWaitTimes, request.json['tbr'], request.json['rideDict'])
+  jobList = makeJobs(arrive, depart, rideWaitTimes, request.json['tbr'], request.json['rideDict'], request.json['rideDecay'])
   result = lpApprox(jobList, arrive, depart, request.json['rideDict'].keys())
   print('Got plans')
   return {'planList': result}

@@ -8,11 +8,11 @@ from datetime import timedelta
 
 def plan(arrive, depart, doy, timeBetweenRides, rideValsDict):
   rideWaitTimes = getAllDayPredict(arrive, depart, doy, rideValsDict.keys())[1]
-  jobList = makeJobs(arrive, depart, rideWaitTimes, timeBetweenRides, rideValsDict)
+  jobList = makeJobs(arrive, depart, rideWaitTimes, timeBetweenRides, rideValsDict, 0.5)
   result = lpApprox(jobList, arrive, depart, rideValsDict.keys())
   return result
 
-def makeJobs(arrive, depart, rideWaitTimes, timeBetweenRides, rideValsDict):
+def makeJobs(arrive, depart, rideWaitTimes, timeBetweenRides, rideValsDict, rideDecay):
   jobList = []
   skipUntil = int((arrive['h']-8)*6+arrive['mi']/10)
   endOn = int((depart['h']-8)*6+depart['mi']/10)+1
@@ -20,6 +20,9 @@ def makeJobs(arrive, depart, rideWaitTimes, timeBetweenRides, rideValsDict):
     timeOfDay = datetime(2022, 4, 22, arrive['h'], arrive['mi'])
     waitTimes = rideWaitTimes[rideName]
     vals = rideValsDict[rideName]['rideVals']
+    if len(vals) == 1:
+      firstVal = rideValsDict[rideName]['rideVals'][0]
+      vals = [firstVal, firstVal*rideDecay, firstVal*rideDecay*rideDecay]
     for wt in waitTimes[skipUntil:endOn]:
       if wt:
         endTime = timeOfDay+timedelta(minutes=int(timeBetweenRides))+timedelta(minutes=wt)

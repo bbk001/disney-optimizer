@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 function RideRateCompare({rideLeft, rideRight, setRideRightRating}) {
-  const [minutes, setMinutes] = useState(60);
+  const [minutes, setMinutes] = useState(45);
 
   return (
     <div>

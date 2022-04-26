@@ -27,7 +27,7 @@ function RideRate({setReadyToRate, setReadyToPlan}) {
         rideLeft={rideInfo[rideOrder[rideRateData.i]]}
         rideRight={rideInfo[rideOrder[rideRateData.i+1]]}
         setRideRightRating={minutes=>{
-          const newListOfRatings = [...rideRateData.listOfRatings, rideRateData.listOfRatings[rideRateData.i]*(parseInt(minutes)+60)/120];
+          const newListOfRatings = [...rideRateData.listOfRatings, rideRateData.listOfRatings[rideRateData.i]*(parseInt(minutes)+30)/90];
           if (rideRateData.i+2<rideOrder.length) {
             setRideRateData({
               i: rideRateData.i+1,
