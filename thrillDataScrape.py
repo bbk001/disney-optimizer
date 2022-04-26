@@ -58,22 +58,21 @@ def getWaitTimePredict(ride, park='disneyland', dateTimesToCheck=[datetime.now()
     else:
       asListOfLines = json.loads(textLeft)[:-1]
     fullListOfLines += (asListOfLines)
-  if not forFuture:
-    params = {
-      'park': park,
-      'title': ride,
-      'dateStart': '{}-{:02d}-{:02d}'.format(y,mo,d),
-      'tag': 'daily',
-    }
-    response = requests.get('https://www.thrill-data.com/waits/graph/quick/rideavg', headers=headers, params=params, cookies=cookies)
-    textLeft = response.text
-    textLeft = textLeft[textLeft.find("Disney Forecast"):]
-    textLeft = textLeft[textLeft.find("y\\\":["):]
-    textLeft = textLeft[4:textLeft.find(",\\\"yaxis")]
-    try:
-      disneyForecasts = json.loads(textLeft)
-    except:
-      disneyForecasts = []
+  params = {
+    'park': park,
+    'title': ride,
+    'dateStart': '{}-{:02d}-{:02d}'.format(y,mo,d),
+    'tag': 'daily',
+  }
+  response = requests.get('https://www.thrill-data.com/waits/graph/quick/rideavg', headers=headers, params=params, cookies=cookies)
+  textLeft = response.text
+  textLeft = textLeft[textLeft.find("Disney Forecast"):]
+  textLeft = textLeft[textLeft.find("y\\\":["):]
+  textLeft = textLeft[4:textLeft.find(",\\\"yaxis")]
+  try:
+    disneyForecasts = json.loads(textLeft)
+  except:
+    disneyForecasts = []
   lastYield = 100
   dForecastsRatio = 1
   for dateTimeToCheck in dateTimesToCheck:
