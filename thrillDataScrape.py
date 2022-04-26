@@ -33,17 +33,13 @@ headers = {
     'sec-ch-ua-platform': '"macOS"',
 }
 
-def getWaitTimePredict(ride, park='disneyland', dateTimesToCheck=datetime.now()):
-  # y = 2022
-  # mo = 4
-  # d = 21
-  # h = 14
-  # mi = 0
+def getWaitTimePredict(ride, park='disneyland', dateTimesToCheck=[datetime.now()]):
   now = datetime.now()
   y = dateTimesToCheck[0].year
   mo = dateTimesToCheck[0].month
   d = dateTimesToCheck[0].day
   fullListOfLines = []
+  forFuture = datetime(y, mo, d) > datetime(now.year, now.month, now.day)
   for tagOption in ['week', 'dow','hist']:
     params = {
         'park': park,
@@ -56,31 +52,45 @@ def getWaitTimePredict(ride, park='disneyland', dateTimesToCheck=datetime.now())
     textLeft = textLeft[textLeft.find("Plotly.newPlot"):]
     textLeft = textLeft[textLeft.find("["):textLeft.find("]}],")+3]
     textLeft = textLeft.replace('\\','')
-    if datetime(y, mo, d, 4) > datetime(now.year, now.month, now.day+1, 3):
+    if forFuture:
       asListOfLines = json.loads(textLeft)
     else:
       asListOfLines = json.loads(textLeft)[:-1]
     fullListOfLines += (asListOfLines)
+  if not forFuture:
+    params = {
+      'park': park,
+      'title': ride,
+      'dateStart': '{}-{:02d}-{:02d}'.format(y,mo,d),
+      'tag': 'daily',
+    }
+    response = requests.get('https://www.thrill-data.com/waits/graph/quick/rideavg', headers=headers, params=params, cookies=cookies)
+    textLeft = response.text
+    textLeft = textLeft[textLeft.find("Disney Forecast"):]
+    textLeft = textLeft[textLeft.find("y\\\":["):]
+    textLeft = textLeft[4:textLeft.find(",\\\"yaxis")]
+    listOfTimes = json.loads(textLeft)
   for dateTimeToCheck in dateTimesToCheck:
     h = dateTimeToCheck.hour
     mi = int(dateTimeToCheck.minute/10)*10
-
-    predictionList = []
-    for line in fullListOfLines:
-      waitTimeDict = dict(zip(map(lambda x: datetime.strptime(x[:-4]+'0', '%Y-%m-%dT%H:%M'), line['x']), line['y']))
-      try:
-        predictionList.append(waitTimeDict[datetime(y, mo, d, h, mi)])
-      except:
+    if int(h)<22 or forFuture:
+      predictionList = []
+      for line in fullListOfLines:
+        waitTimeDict = dict(zip(map(lambda x: datetime.strptime(x[:-4]+'0', '%Y-%m-%dT%H:%M'), line['x']), line['y']))
         try:
-          predictionList.append(waitTimeDict[datetime(y, mo, d, h, mi-10)])
+          predictionList.append(waitTimeDict[datetime(y, mo, d, h, mi)])
         except:
-          pass
-    try:
-      predictionList.sort()
-      if len(predictionList)>2:
-        yield int(np.sqrt(np.mean(np.array(predictionList[1:-1])**2)))
-      else:
+          try:
+            predictionList.append(waitTimeDict[datetime(y, mo, d, h, mi-10)])
+          except:
+            pass
+      try:
+        predictionList.sort()
+        if len(predictionList)>2:
+          yield int(np.sqrt(np.mean(np.array(predictionList[1:-1])**2)))
+        else:
+          yield None
+      except:
         yield None
-    except:
-      yield None
-
+    else:
+      yield listOfTimes[-1] if int(h)>22 else listOfTimes[-2]
