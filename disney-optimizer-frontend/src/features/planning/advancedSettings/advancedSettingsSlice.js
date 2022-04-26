@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const advancedSettingsSlice = createSlice({
   name: 'advancedSettings',
   initialState: {
-    multiRidePrefs: 2/5
+    multiRidePrefs: 1/3
   },
   reducers: {
     setMultiRidePrefs: (state, data) => {

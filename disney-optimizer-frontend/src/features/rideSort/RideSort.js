@@ -44,7 +44,10 @@ function RideSort({setReadyToSort, setReadyToRate}) {
             });
           } else {
             localStorage.setItem('sorted-rides', JSON.stringify(insertSortData.list));
-            localStorage.setItem('tie-data', JSON.stringify(insertSortData.tieData));
+            localStorage.setItem('tie-data', JSON.stringify({
+              tieData: insertSortData.tieData,
+              tieOrder: insertSortData.tieOrder
+            }));
             setReadyToRate(true)
           }
         }}

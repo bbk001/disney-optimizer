@@ -4,6 +4,7 @@ import RideRate from './features/rideRate/RideRate';
 import DeselectRides from './features/rideSelection/DeselectRides';
 import RideSort from './features/rideSort/RideSort';
 import Planning from './features/planning/Planning';
+import ErrorBoundary from './app/ErrorBoundary';
 
 function RankingRides() {
   const [readyToPlan, setReadyToPlan] = useState(JSON.parse(localStorage.getItem('ride-ratings')));
@@ -21,9 +22,11 @@ function RankingRides() {
     body = <DeselectRides setReadyToSort={setReadyToSort}/>
   }
   return (
-    <div className='app-container'>
-      {body}
-    </div>
+    <ErrorBoundary>
+      <div className='app-container'>
+        {body}
+      </div>
+    </ErrorBoundary>
   )
 }
 
