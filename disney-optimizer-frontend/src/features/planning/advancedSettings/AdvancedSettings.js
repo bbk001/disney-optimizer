@@ -10,9 +10,10 @@ function AdvancedSettings() {
   const dispatch = useDispatch()
 
   const optionsValues = [
-    { label: "Sure!", value: 2/3},
-    { label: "Sometimes", value: 1/3},
-    { label: "Rarely", value: 1/5},
+    { label: "Yes!", value: 2/3},
+    { label: "Usually", value: 2/5},
+    { label: "Sometimes", value: 1/4},
+    { label: "Rarely", value: 1/7},
     { label: "Never", value: 0}
   ]
 

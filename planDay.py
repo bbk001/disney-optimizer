@@ -19,13 +19,14 @@ def makeJobs(arrive, depart, rideWaitTimes, timeBetweenRides, rideValsDict, ride
   for rideName in rideValsDict.keys():
     timeOfDay = datetime(2022, 4, 22, arrive['h'], arrive['mi'])
     waitTimes = rideWaitTimes[rideName]
+    onRideTime = int(rideValsDict[rideName]['onRideTime'])
     vals = rideValsDict[rideName]['rideVals']
     if len(vals) == 1:
       firstVal = rideValsDict[rideName]['rideVals'][0]
       vals = [firstVal, firstVal*rideDecay, firstVal*rideDecay*rideDecay]
     for wt in waitTimes[skipUntil:endOn]:
       if wt:
-        endTime = timeOfDay+timedelta(minutes=int(timeBetweenRides))+timedelta(minutes=wt)
+        endTime = timeOfDay+timedelta(minutes=int(timeBetweenRides))+timedelta(minutes=wt)+timedelta(minutes=onRideTime)
         jobList.append(Job(timeOfDay, endTime, vals[0], rideName, timeBetweenRides))
         jobList.append(Job(timeOfDay, endTime, vals[1], rideName+'2', timeBetweenRides))
         jobList.append(Job(timeOfDay, endTime, vals[2], rideName+'3', timeBetweenRides))

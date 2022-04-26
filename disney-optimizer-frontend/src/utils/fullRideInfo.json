@@ -1,106 +1,132 @@
 {
   "madteaparty": {
     "rideVals": [15,5,1],
-    "rideName": "Tea Cups"
+    "rideName": "Tea Cups",
+    "onRideTime": 2
   },
   "kingarthurcarrousel": {
     "rideVals": [15,5,1],
-    "rideName": "Fantasyland Carrousel"
+    "rideName": "Fantasyland Carrousel",
+    "onRideTime": 3
   },
   "caseyjrcircustrain": {
     "rideVals": [20, 10, 5],
-    "rideName": "Casey Jr. Train"
+    "rideName": "Casey Jr. Train",
+    "onRideTime": 4
   },
   "storybooklandcanalboats": {
     "rideVals": [20,10,5],
-    "rideName": "Storybookland Canal Boats"
+    "rideName": "Storybookland Canal Boats",
+    "onRideTime": 10
   },
   "dumbotheflyingelephant": {
     "rideVals": [15,5,1],
-    "rideName": "Dumbo"
+    "rideName": "Dumbo",
+    "onRideTime": 2
   },
   "aliceinwonderland": {
     "rideVals": [25,10,5],
-    "rideName": "Alice in Wonderland"
+    "rideName": "Alice in Wonderland",
+    "onRideTime": 4
   },
   "themanyadventuresofwinniethepooh": {
     "rideVals": [25,10,5],
-    "rideName": "Winnie The Pooh"
+    "rideName": "Winnie The Pooh",
+    "onRideTime": 4
   },
   "snowwhitesenchantedwish": {
     "rideVals": [30,15,10],
-    "rideName": "Snow White"
+    "rideName": "Snow White",
+    "onRideTime": 2
   },
   "pinocchiosdaringjourney": {
     "rideVals": [30,15,10],
-    "rideName": "Pinocchio"
+    "rideName": "Pinocchio",
+    "onRideTime": 3
   },
   "itsasmallworld": {
     "rideVals": [30,15,10],
-    "rideName": "It's a Small World"
+    "rideName": "It's a Small World",
+    "onRideTime": 14
   },
   "astroorbitor": {
     "rideVals": [20,10,5],
-    "rideName": "Astro Orbiter"
+    "rideName": "Astro Orbiter",
+    "onRideTime": 2
   },
   "autopia": {
     "rideVals": [40,25,15],
-    "rideName": "Autopia"
+    "rideName": "Autopia",
+    "onRideTime": 5
   },
   "junglecruise": {
     "rideVals": [45,35,25],
-    "rideName": "Jungle Cruise"
+    "rideName": "Jungle Cruise",
+    "onRideTime": 8
   },
   "mrtoadswildride": {
     "rideVals": [35,20,10],
-    "rideName": "Mr. Toad's Wild Ride"
+    "rideName": "Mr. Toad's Wild Ride",
+    "onRideTime": 2
   },
   "peterpansflight": {
     "rideVals": [35,20,10],
-    "rideName": "Peter Pan"
+    "rideName": "Peter Pan",
+    "onRideTime": 3
   },
   "startourstheadventurescontinue": {
     "rideVals": [45,35,25],
-    "rideName": "Star Tours"
+    "rideName": "Star Tours",
+    "onRideTime": 7
   },
   "hauntedmansion": {
     "rideVals": [55,45,30],
-    "rideName": "Haunted Mansion"
+    "rideName": "Haunted Mansion",
+    "onRideTime": 9
   },
   "buzzlightyearastroblasters": {
     "rideVals": [52,45,40],
-    "rideName": "Astro Blasters"
+    "rideName": "Astro Blasters",
+    "onRideTime": 5
   },
   "indianajonesadventure": {
     "rideVals": [70,45,35],
-    "rideName": "Indiana Jones"
+    "rideName": "Indiana Jones",
+    "onRideTime": 10
   },
   "piratesofthecaribbean": {
     "rideVals": [55,45,30],
-    "rideName": "Pirates of The Caribbean"
+    "rideName": "Pirates of The Caribbean",
+    "onRideTime": 15
   },
   "bigthundermountainrailroad": {
     "rideVals": [70,50,40],
-    "rideName": "Thunder Mountain"
+    "rideName": "Thunder Mountain",
+    "onRideTime": 4
   },
   "matterhornbobsleds": {
     "rideVals": [72,55,45],
-    "rideName": "The Matterhorn"
+    "rideName": "The Matterhorn",
+    "onRideTime": 4
   },
   "splashmountain": {
     "rideVals": [75,55,45],
-    "rideName": "Splash Mountain"
+    "rideName": "Splash Mountain",
+    "onRideTime": 11
   },
   "millenniumfalconsmugglersrun": {
     "rideVals": [80,40,30],
-    "rideName": "Smuggler's Run"
+    "rideName": "Smuggler's Run",
+    "onRideTime": 5
   },
   "spacemountain": {
     "rideVals": [100,75,65],
-    "rideName": "Space Mountain"
+    "rideName": "Space Mountain",
+    "onRideTime": 5
   },
   "starwarsriseoftheresistance": {
     "rideVals": [110,60,50],
-    "rideName": "Rise of The Resistance"
+    "rideName": "Rise of The Resistance",
+    "onRideTime": 18
   }
 }
