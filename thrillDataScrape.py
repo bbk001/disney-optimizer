@@ -73,7 +73,8 @@ def getWaitTimePredict(ride, park='disneyland', dateTimesToCheck=[datetime.now()
     try:
       listOfTimes = json.loads(textLeft)
     except:
-      listOfTimes = [None, None]
+      listOfTimes = []
+  lastYield = 100
   for dateTimeToCheck in dateTimesToCheck:
     h = dateTimeToCheck.hour
     mi = int(dateTimeToCheck.minute/10)*10
@@ -91,10 +92,13 @@ def getWaitTimePredict(ride, park='disneyland', dateTimesToCheck=[datetime.now()
       try:
         predictionList.sort()
         if len(predictionList)>2:
-          yield int(np.sqrt(np.mean(np.array(predictionList[1:-1])**2)))
+          lastYield = int(np.sqrt(np.mean(np.array(predictionList[1:-1])**2)))
         else:
-          yield None
+          lastYield = lastYield*1.1
       except:
-        yield None
+        lastYield = lastYield*1.1
+    elif len(listOfTimes)>0:
+      lastYield = listOfTimes[-1] if int(h)>22 else listOfTimes[-2]
     else:
-      yield listOfTimes[-1] if int(h)>22 else listOfTimes[-2]
+      lastYield = lastYield*0.9
+    yield lastYield
