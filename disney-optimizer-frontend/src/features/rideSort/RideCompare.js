@@ -1,6 +1,6 @@
 import React from 'react';
 
-function RideCompare({rideLeft, rideRight, pickLeft, pickRight}) {
+function RideCompare({rideLeft, rideRight, pickLeft, pickRight, pickEither}) {
   return (
     <div>
       <div className='explainer'>If the lines were the same length would you prefer to ride:</div>
@@ -14,6 +14,11 @@ function RideCompare({rideLeft, rideRight, pickLeft, pickRight}) {
         onClick={pickRight}
       >
         {rideRight.rideName}
+      </button>
+      <button className='neutral'
+        onClick={pickEither}
+      >
+        No Preference
       </button>
     </div>
   )

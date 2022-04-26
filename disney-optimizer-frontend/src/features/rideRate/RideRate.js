@@ -7,20 +7,27 @@ function RideRate({setReadyToRate, setReadyToPlan}) {
   const rideOrder = JSON.parse(localStorage.getItem('sorted-rides')).reverse()
   const [rideRateData, setRideRateData] = useState({i: 0, listOfRatings: [1000]});
 
-  return (
-    <div className='page'>
-      <button 
+  let mainRideRate;
+  if (rideOrder.length < 2) {
+    mainRideRate = 
+      <button
         onClick={()=>{
-          localStorage.removeItem('sorted-rides')
-          setReadyToRate(false)
+          localStorage.setItem(
+            'ride-ratings', 
+            JSON.stringify(rideRateData.listOfRatings)
+          )
+          setReadyToPlan(true)
         }}
-        className='back'
-      >&laquo; Back to Ride Sorting</button>
+      >
+        Continue
+      </button>
+  } else {
+    mainRideRate = 
       <RideRateCompare 
         rideLeft={rideInfo[rideOrder[rideRateData.i]]}
         rideRight={rideInfo[rideOrder[rideRateData.i+1]]}
         setRideRightRating={minutes=>{
-          const newListOfRatings = [...rideRateData.listOfRatings, rideRateData.listOfRatings[rideRateData.i]*(parseInt(minutes)+30)/90];
+          const newListOfRatings = [...rideRateData.listOfRatings, rideRateData.listOfRatings[rideRateData.i]*(parseInt(minutes)+60)/120];
           if (rideRateData.i+2<rideOrder.length) {
             setRideRateData({
               i: rideRateData.i+1,
@@ -35,6 +42,19 @@ function RideRate({setReadyToRate, setReadyToPlan}) {
           }
         }}
       />
+  }
+
+  return (
+    <div className='page'>
+      <button 
+        onClick={()=>{
+          localStorage.removeItem('sorted-rides')
+          localStorage.removeItem('tie-data')
+          setReadyToRate(false)
+        }}
+        className='back'
+      >&laquo; Back to Ride Sorting</button>
+      {mainRideRate}
     </div>
   )
 }
